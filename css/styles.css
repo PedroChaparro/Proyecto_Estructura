@@ -10,5 +10,24 @@
 body{
 
     background-color: black;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 
 }
+
+header{
+
+    background-color: #001eff; 
+    width: 100%;
+    clear: both; 
+    content: "";
+    display: table; 
+
+}
+
+#contenido{
+
+    width: 1290px;
+    background-color: white; 
+
+}
+
