@@ -31,3 +31,9 @@ header{
 
 }
 
+#img_table{
+
+    border-collapse: separate;
+    border-spacing: 70px 0px;
+
+}
