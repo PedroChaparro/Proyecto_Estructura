@@ -1,0 +1,39 @@
+#particles-js{
+
+    height: 100vh;
+    width:  100%;
+    position: fixed;
+    z-index: -1;
+
+}
+
+body{
+
+    background-color: black;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+
+}
+
+header{
+
+    background-color: #001eff; 
+    width: 100%;
+    clear: both; 
+    content: "";
+    display: table; 
+
+}
+
+#contenido{
+
+    width: 1290px;
+    background-color: white; 
+
+}
+
+#img_table{
+
+    border-collapse: separate;
+    border-spacing: 70px 0px;
+
+}

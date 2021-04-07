@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<head>
+    <style>
+        #contenido-inferior{
+            margin: auto;
+            margin-top: -30px;
+            width: 960px;
+            height: 620px;
+            background-color: white;
+        }
+        #contenido-superior{
+            margin: auto;
+            margin-top: -60px;
+            width: 960px;
+            height: 60px;
+            background-color: white;
+        }
+        #contenido-inferior-Pila{
+            margin: auto;
+            margin-top: 0px;
+            width: 960px;
+            height: 1800px;
+            background-color: white;
+        }
+    </style>
+    
+    <link rel="stylesheet" href="./css/styles.css ", type="text/css">
+    <title>
+
+</head>
+    </title>
+    <body>
+            <div id="particles-js"></div>
+            <pre style="word-wrap: break-word; white-space: pre-wrap;">
+                <code>
+                        <center>
+                        <div class="container" id="contenido-superior">
+                            <h1 style="margin-top: -15px;">Java - Pila Estatica</h1>
+                        </div>
+                        </center>
+                        <div class="container" id="contenido-inferior">
+                            <h1 style="margin-top: -15px; margin-left: 20px;">- Codigo Nodo</h1>
+                            <left><p style="margin-top: -15px; margin-left: 80px;">package pilas;
+
+                                public class Nodo {
+                                
+                                    Object valor;
+                                    public Nodo siguiente;
+                                
+                                    public Nodo(Object valor, Nodo siguiente){
+                                        this.valor = valor;
+                                        this.siguiente = siguiente;
+                                    }
+                                
+                                    public Object getValue(){
+                                        return valor;
+                                    }
+                                
+                                    public void setElemento(Object valor){
+                                        this.valor = valor;
+                                    }
+                                
+                                    public Nodo getSiguiente(){
+                                        return siguiente;
+                                    }
+                                
+                                    public void setSiguiente(Nodo siguiente){
+                                        this.siguiente = siguiente;
+                                    }
+                                
+                                    public String toString(){
+                                        return valor + "\n"; 
+                                    }
+                                
+                                    
+                                }</p></left>
+                        </div>
+                        <div class="container" id="contenido-inferior-Pila">
+                            <h1 style="margin-top: -15px; margin-left: 20px;">- Codigo Pila</h1>
+                            <left><p style="margin-top: -15px; margin-left: 80px;">package pilas;
+
+                                public class Pila implements StackInterface {
+                                
+                                    public Nodo top;
+                                    public int size;
+                                
+                                    public Pila(){
+                                        top = null;
+                                        this.size = 0;
+                                    }
+                                
+                                    public boolean isEmpty(){
+                                
+                                        if(top == null){
+                                            return true;
+                                        }else{
+                                            return false;
+                                        }
+                                
+                                    }
+                                
+                                    public void clear() {
+                                
+                                        Object[] array = (Object[])new Object[size];
+                                
+                                        for (int i = 0; i < array.length; i++) {
+                                            array[i] = null;
+                                        }
+                                        top = null;
+                                    }
+                                
+                                    public Object peek() {
+                                
+                                        Object[] array = (Object[])new Object[size];
+                                
+                                        if(top != null){
+                                            return array[size-1];
+                                        }else{
+                                            return null;
+                                        }
+                                    }
+                                
+                                    public int size(){
+                                
+                                        return this.size;
+                                
+                                    }
+                                
+                                    public Object pop(){
+                                
+                                        if(isEmpty()){
+                                            return null;
+                                        }else{
+                                            Object valor = top.getValue();
+                                            Nodo aux = top.getSiguiente();
+                                            top = null;
+                                            top = aux;
+                                            this.size--;
+                                            return valor;
+                                        }
+                                
+                                    }
+                                
+                                    public void push(Object valor){
+                                
+                                        Nodo aux = new Nodo(valor, top);
+                                        top = aux;
+                                        size++;
+                                        
+                                    }
+                                
+                                    public Object top(){
+                                
+                                        if(isEmpty()){
+                                            return null;
+                                        }else{
+                                            return top.getValue();
+                                        }
+                                
+                                    }
+                                
+                                    public String toString(){
+                                
+                                        if(isEmpty()){
+                                            return "La pila está vacia";
+                                        }else{
+                                
+                                            String resultado = "";
+                                            Nodo aux = top;
+                                            while(aux != null){
+                                
+                                                resultado += aux.toString();
+                                                aux = aux.getSiguiente();
+                                
+                                            }
+                                            return resultado;
+                                        }
+                                
+                                    }
+                                
+                                    public void reverse(){
+                                
+                                        Object valor;
+                                
+                                        Object[] array = (Object[])new Object[size];
+                                
+                                        for(int i=0 ; (valor = pop()) != null; i++){
+                                            array[i] = valor;
+                                        }
+                                
+                                        for(int i=0;i<array.length;i++){
+                                
+                                            push(array[i]);
+                                
+                                        }
+                                    }
+                                
+                                    public boolean search(Object object) {
+                                        return false;
+                                    }
+                                
+                                    public void sort() {
+                                
+                                    }
+                                    
+                                }</p></left>
+
+                        </div>                
+                </code>
+            </pre>
+        </div>
+        <script src="js/particles.min.js"></script>
+        <script src="js/app.js"></script>
+    </body>
