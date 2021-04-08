@@ -37,3 +37,190 @@ header{
     border-spacing: 70px 0px;
 
 }
+#hombre{
+    position: relative;
+    background-color: white;
+}
+
+#hombre::before{
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    background: linear-gradient(-90deg,#14ffe9 0%, #ffeb3b 47%, #ff00e0 100%);
+    background-size: 400%;
+    width: calc(100%  + 4px);
+    height: calc(100% + 4px);
+    z-index: -1;
+    animation: animate 20s linear infinite;
+}
+#hombre::after{
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    background: linear-gradient(-90deg,#14ffe9 0%, #ffeb3b 47%, #ff00e0 100%);
+    background-size: 400%;
+    width: calc(100%  + 4px);
+    height: calc(100% + 4px);
+    z-index: -1;
+    animation: animate 20s linear infinite;
+    filter: blur(10px)
+}
+
+#contenido-superior{
+    position: relative;
+    background-color: black;
+}
+
+#contenido-superior::before{
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    margin-left: -1.8px;
+    background: linear-gradient(-90deg,#14ffe9 0%, #ffeb3b 47%, #ff00e0 100%);
+    background-size: 400%;
+    width: calc(100%  + 4px);
+    height: calc(100% + 4px);
+    z-index: -1;
+    animation: animate 20s linear infinite;
+}
+#contenido-superior::after{
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    margin-left: -1.8px;
+    background: linear-gradient(-90deg,#14ffe9 0%, #ffeb3b 47%, #ff00e0 100%);
+    background-size: 400%;
+    width: calc(100%  + 4px);
+    height: calc(100% + 4px);
+    z-index: -1;
+    animation: animate 20s linear infinite;
+    filter: blur(10px)
+}
+@keyframes animate
+{
+    0%
+    {
+        background-position: 0 0;
+    }
+    50%
+    {
+        background-position: 100% 0;
+    }
+    100%
+    {
+        background-position: 0 0;
+    }
+}
+
+#hombre::after{
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    background: linear-gradient(-90deg,#14ffe9 0%, #ffeb3b 47%, #ff00e0 100%);
+    background-size: 400%;
+    width: calc(100%  + 4px);
+    height: calc(100% + 4px);
+    z-index: -1;
+    animation: animate 20s linear infinite;
+    filter: blur(10px)
+}
+
+#boton{
+    position: relative;
+    background: black;
+}
+
+#boton::before{
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    background: linear-gradient(-90deg,#14ffe9 0%, #ffeb3b 47%, #ff00e0 100%);
+    background-size: 400%;
+    width: calc(100%  + 4px);
+    height: calc(100% + 4px);
+    z-index: -1;
+}
+
+#boton::after{
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    background: linear-gradient(-90deg,#14ffe9 0%, #ffeb3b 47%, #ff00e0 100%);
+    background-size: 400%;
+    width: calc(100%  + 4px);
+    height: calc(100% + 4px);
+    z-index: -1;
+    animation: animate 20s linear infinite;
+    filter: blur(10px)
+}
+
+a{
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+a span{
+    color: grey;
+}
+
+a:hover span{
+    color: white;
+    text-shadow: 0 0 20px #fff;
+}
+
+#a2{
+    position: relative;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+#a2 span{
+    color:white;
+}
+
+#a2:hover span{
+    color: rgb(65, 255, 113);
+    text-shadow: 0 0 20px rgb(69, 255, 153);
+}
+
+#a3{
+    position: relative;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+#a3 span{
+    color:white;
+}
+
+#a3:hover span{
+    color: rgb(252, 255, 65);
+    text-shadow: 0 0 20px rgb(255, 252, 69);
+}
+
+#a4{
+    position: relative;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+#a4 span{
+    color:white;
+}
+
+#a4:hover span{
+    color: rgb(65, 255, 255);
+    text-shadow: 0 0 20px rgb(69, 218, 255);
+}
+
+
+
+
+
