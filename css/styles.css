@@ -25,11 +25,12 @@ header{
 }
 
 #contenido{
-
     width: 1290px;
     background-color: white; 
 
 }
+
+
 
 #img_table{
 
@@ -71,6 +72,9 @@ header{
 #contenido-superior{
     position: relative;
     background-color: black;
+    top: -28px;
+    left: -8px;
+    width:100.9%;
 }
 
 #contenido-superior::before{
@@ -231,8 +235,9 @@ a:hover span{
 
 .contenedor .box{
     position: relative;
+    top: 50px;
     width: 320px;
-    height: 361px;
+    height: 375px;
     color: #fff;
     background: #111;
     display: flex;
@@ -327,6 +332,80 @@ a:hover span{
     text-decoration: none;
     font-weight: 700;
 }
+
+#boton2{
+    position: relative;
+    background: black;
+    float: left;
+    width: 700px;
+    height: 700px;
+    left: 70px;
+    top: 40px;
+}
+
+#boton2::before{
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    background: linear-gradient(-90deg,#14ffe9 0%, #ffeb3b 47%, #ff00e0 100%);
+    background-size: 400%;
+    width: calc(100%  + 4px);
+    height: calc(100% + 4px);
+    z-index: -1;
+}
+
+#boton2::after{
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    background: linear-gradient(-90deg,#14ffe9 0%, #ffeb3b 47%, #ff00e0 100%);
+    background-size: 400%;
+    width: calc(100%  + 4px);
+    height: calc(100% + 4px);
+    z-index: -1;
+    animation: animate 20s linear infinite;
+    filter: blur(10px)
+}
+
+
+#boton3{
+    position: relative;
+    background: black;
+    float: left;
+    width: 700px;
+    height: 700px;
+    left: 320px;
+    top: 40px;
+}
+
+#boton3::before{
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    background: linear-gradient(-90deg,#14ffe9 0%, #ffeb3b 47%, #ff00e0 100%);
+    background-size: 400%;
+    width: calc(100%  + 4px);
+    height: calc(100% + 4px);
+    z-index: -1;
+}
+
+#boton3::after{
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    background: linear-gradient(-90deg,#14ffe9 0%, #ffeb3b 47%, #ff00e0 100%);
+    background-size: 400%;
+    width: calc(100%  + 4px);
+    height: calc(100% + 4px);
+    z-index: -1;
+    animation: animate 20s linear infinite;
+    filter: blur(10px)
+}
+
 
 
 
