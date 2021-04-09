@@ -220,6 +220,113 @@ a:hover span{
     text-shadow: 0 0 20px rgb(69, 218, 255);
 }
 
+.contenedor{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 0;
+    flex-wrap: wrap;
+}
+
+.contenedor .box{
+    position: relative;
+    width: 320px;
+    height: 361px;
+    color: #fff;
+    background: #111;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 30px;
+    transition: 0.5s;
+}
+
+.contenedor .box:hover{
+    transform: translateY(-20px);
+}
+
+.contenedor .box::before{
+    content:'';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg,#ffbc00, #ff0050);
+}
+
+.contenedor .box::after{
+    content:'';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg,#ffbc00, #ff0050);
+    filter: blur(20px);
+}
+
+.contenedor .box:nth-child(2):before,
+.contenedor .box:nth-child(2):after{
+    background: linear-gradient(315deg,#03a9f4, #ff0050);
+}
+
+.contenedor .box:nth-child(3):before,
+.contenedor .box:nth-child(3):after{
+    background: linear-gradient(315deg,#4dff03, #00d0ff);
+}
+
+.contenedor .box span{
+    position: absolute;
+    top: 6px;
+    left: 6px;
+    right: 6px;
+    bottom: 6px;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 2;
+}
+
+.contenedor .box span::before{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 50%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.1);
+    pointer-events: none;
+}
+
+.contenedor .box .contener{
+    position: relative;
+    z-index: 10;
+    padding: 20px 40px;
+}
+
+.contenedor .box .contener h2{
+    font-size: 2em;
+    color: #fff;
+    margin-bottom: 10px;
+    margin-top: -60px;
+}
+
+.contenedor .box .contener p{
+    font-size: 1.1em;
+    color: #fff;
+    margin-bottom: 10px;
+    line-height: 1.4em;
+}
+
+.contenedor .box .contener a{
+    display: inline-block;
+    font-size: 1.1em;
+    color: #111;
+    background: #fff;
+    padding: 10px;
+    text-decoration: none;
+    font-weight: 700;
+}
 
 
 
