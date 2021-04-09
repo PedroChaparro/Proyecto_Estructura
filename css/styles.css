@@ -8,7 +8,6 @@
 }
 
 body{
-
     background-color: black;
     font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 
@@ -235,9 +234,9 @@ a:hover span{
 
 .contenedor .box{
     position: relative;
-    top: 50px;
+    top: 100px;
     width: 320px;
-    height: 375px;
+    height: 390px;
     color: #fff;
     background: #111;
     display: flex;
@@ -405,6 +404,81 @@ a:hover span{
     animation: animate 20s linear infinite;
     filter: blur(10px)
 }
+
+#boton4{
+    position: relative;
+    background: black;
+    float: left;
+    width: 670px;
+    height: 170px;
+    left: 90px;
+    top: 30px;
+}
+
+#boton4::before{
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    background: linear-gradient(-90deg,#14ffe9 0%, #ffeb3b 47%, #ff00e0 100%);
+    background-size: 400%;
+    width: calc(100%  + 4px);
+    height: calc(100% + 4px);
+    z-index: -1;
+}
+
+#boton4::after{
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    background: linear-gradient(-90deg,#14ffe9 0%, #ffeb3b 47%, #ff00e0 100%);
+    background-size: 400%;
+    width: calc(100%  + 4px);
+    height: calc(100% + 4px);
+    z-index: -1;
+    animation: animate 20s linear infinite;
+    filter: blur(10px)
+}
+
+#boton5{
+    position: relative;
+    background: black;
+    float: left;
+    width: 670px;
+    height: 170px;
+    left: 350px;
+    top: 30px;
+}
+
+#boton5::before{
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    background: linear-gradient(-90deg,#14ffe9 0%, #ffeb3b 47%, #ff00e0 100%);
+    background-size: 400%;
+    width: calc(100%  + 4px);
+    height: calc(100% + 4px);
+    z-index: -1;
+}
+
+#boton5::after{
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    background: linear-gradient(-90deg,#14ffe9 0%, #ffeb3b 47%, #ff00e0 100%);
+    background-size: 400%;
+    width: calc(100%  + 4px);
+    height: calc(100% + 4px);
+    z-index: -1;
+    animation: animate 20s linear infinite;
+    filter: blur(10px)
+}
+
+
+
 
 
 

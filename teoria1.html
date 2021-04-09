@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="UTF-8" />
+        <title> :: TEORÍA :: </title>
+        <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    
+        <style>
+            #letrascajas{
+                color: rgb(255, 255, 255);
+                text-shadow: 0 0 20px rgb(255, 255, 255);
+            }
+    
+            #subtituloCaja{
+    
+                color: rgb(255, 255, 255);
+                text-shadow: 0 0 20px rgb(255, 255, 255);
+                margin-left: 20px;
+    
+            }
+    
+            #textP{
+    
+                margin-left: 20px;
+                margin-right: 20px;
+    
+            }
+    
+        </style>
+    
+        <!-- ESTILOS CSS -->
+        <link rel="stylesheet" href="./css/styles.css ", type="text/css">
+    </head>
+    
+    <body>
+    
+        <!-- DIV PARTÍCULAS -->
+        <div id="particles-js"></div>
+
+        |  <!-- MENÚ DE NAVEGACIÓN -->
+        <div class="container" id="contenido-superior">
+    
+            <table id="img_table" align="center"> 
+            <tr>
+                <td>
+                    <a id="a2" href="home.html" target="_blank">
+                        <h2 class="container" id ="letras"><a href="home.html" id="a2"><span>INICIO</span></a></h2>
+                    </a>
+                </td>
+                <td>
+                    <a id="a3" href="implementaciones.html" target="_blank">
+                        <h2 class="container" id ="letras"><a href="implementaciones.html" id="a3"><span>Implementación</span></a></h2>
+                    </a>
+                </td>
+                <td>
+                    <a id="a4" href="transformaciones.html">
+                        <h2 class="container" id ="letras"><a href="implementaciones.html" id="a4"><span>Transformaciones</span></a></h2> 
+                    </a>
+                </td>
+            </tr>
+        </table>
+    
+        </div>
+    
+    
+    <center>
+        <div id="boton2">
+            <center>
+                <font color="#fff"><h2 id="letrascajas">LISTA SIMPLEMENTE ENLAZADA</h2></font>
+                <font color="#fff"><p align="justify" id="textP">Una lista simplemente enlazada es una de las estructuras de datos más básicas, 
+                consiste en una secuencia de nodos que están conectados mediante punteros al siguiente nodo, como se puede ver en la siguiente imágen:  </p></font>
+                <img src="img/listaSimple.jpg" alt="EJEMPLO DE LISTA SIMPLE" width="600" height="200">
+                <font color="#fff"><p align="justify" id="textP">Como se puede observar también en la anterior imagen, el nodo final (al cual llamamos cola), no tiene un 
+                nodo siguiente (su puntero a punta a Nulo), lo cual indica que al momento de hacer un recorrido a través de todos los nodos, este terminará al llegar a la cola.
+                </p></font>
+                <font color="#fff"><h3 id="subtituloCaja" align="left">OPERACIONES BÁSICAS:</h2></font>
+                    <font color="#fff"><p align="justify" id="textP">Una lista simplemente enlazada debe tener como mínimo, la capacidad de: <br><br>
+                    - Saber si está vacía (Método IsEmpty() ) <br>
+                    - Obtener el tamaño o la cantidad de nodos (Método GetSize() ) <br>
+                    - Anular la lista (Método Clear() ) <br>
+                    - Obtener el primer nodo ( Método getHead() ) <br>
+                    - Obtener el último nodo ( Método getTail() ) <br>
+                    - Buscar un objeto dentro de la lista ( Método search() ) <br>
+                    - Añadir un objeto a la lista ( método add() ) <br>
+                    - Remover un objeto de la lista ( método remove() )</p></font>   
+    
+            </center>
+        </div>
+    </center>
+    
+    <center>
+        <div id="boton3">
+            <center>
+                <font color="#fff"><h2 id="letrascajas">LISTA DOBLEMENTE ENLAZADA</h2></font>
+                <font color="#fff"><p align="justify" id="textP"> El funcionamiento de esta estructura está basado en la lista simplemente enlazada. Esta lista también
+                consiste en una secuencia de nodos que se conectan entre sí mediante punteros, pero la lista doble tiene una gran diferencia, y es que no existe un solo puntero,
+                ahora tenemos un segundo puntero que enlaza cada nodo a su anterior, como se aprecia en la siguiente imágen:  </p></font>
+                <img src="img/listaDobleSimple.jpg" alt="EJEMPLO DE LISTA SIMPLE" width="600" height="200">
+                <br>
+                <font color="#fff"><p align="justify" id="textP"> Lo anterior nos permite comenzar a recorrer la lista desde la cola. Es importante tener en cuenta que 
+                si comenzamos el recorrido por la cabeza, este se acabará al llegar a la cola, ya que el siguiente nodo luego de la cola sigue siendo nulo. </p></font>
+                <font color="#fff"><h3 id="subtituloCaja" align="left">OPERACIONES BÁSICAS:</h2></font>
+                    <font color="#fff"><p align="justify" id="textP"> Las operaciones básicas de esta estructura son las mismas que la lista simplemente enlazada, a diferencia de que 
+                    ahora podríamos agregar un método que permita realizar el recorrido comenzando por la cola, para hacer búsquedas más eficientes. </p></font>
+            </center>
+        </div>
+    </center>
+    
+    <center>
+        <div id="boton2" style="margin-top: 100px;">
+            <center>
+                <font color="#fff"><h2 id="letrascajas">LISTA CIRCULAR SIMPLE</h2></font>
+                <font color="#fff"><p align="justify" id="textP"> Una lista circular simple es una lista simplemente enlazada sin fin, se dice que no tiene fin porque al momento de hacer el recorrido
+                luego de la cola, se pasa nuevamente a la cabeza. Lo anterior ocurre porque a diferencia de una lista simplemente enlazada normal, ahora la cola no apunta a Nulo, sino que apunta a la cabeza de la lista, 
+                lo cual se puede entender con mayor facilidad viendo la siguiente imágen:  </p></font>
+                <img src="img/listaDobleCircular.jpg" alt="EJEMPLO DE LISTA SIMPLE" width="600" height="200"><br>
+                <font color="#fff"><h3 id="subtituloCaja" align="left">OPERACIONES BÁSICAS:</h2></font>
+                <font color="#fff"><p align="justify" id="textP"> Al tratarse de una lista, sus operaciones básicas son las mismas de la lista simple y doblemente enlazada, lo único a resaltar es que 
+                al momento de recorrer la lista, es necesario contar con una condición de parada, de lo contrario, se seguirá recorriendo la lista como si se tratara de un bucle. </p></font>
+    
+        </div>
+    </center>
+    
+    <center>
+        <div id="boton3" style="margin-top: 100px;">
+            <center>
+                <font color="#fff"><h2 id="letrascajas">LISTA CIRCULAR DOBLE</h2></font>
+                <font color="#fff"><p align="justify" id="textP"> En esta estructura, cada nodo tiene dos punteros, y cada nodo, siempre y cuando exista más de un objeto almacenado apunta a dos nodos, 
+                incluyendo la cabeza y la cola de la lista. Recordando la lista doblemente enlazada, el nodo anterior a la cabeza era nulo, y el nodo siguiente a la cola, era nulo, pero ahora, decimos
+                que el nodo anterior a la cabeza es la cola, y el nodo siguiente a la cola es la cabeza. <br><br>
+                Para un mejor entendimiento, veamos la siguiente imágen:  </p></font>
+                <img src="img/listaCircularDoble.jpg" alt="EJEMPLO DE LISTA SIMPLE" width="600" height="200"><br>
+                <font color="#fff"><h3 id="subtituloCaja" align="left">OPERACIONES BÁSICAS:</h2></font>
+                <font color="#fff"><p align="justify" id="textP"> Sigue conservando como mínimo las operaciones de las demás listas, pero hay dos consideraciones: <br><br>
+                1- Al igual que la lista circular simplemente enlazada es necesario tener una condición de parada, para evitar recorrer la lista en un bucle. <br> <br>
+                2- La lista puede estar en la capacidad de comenzar su recorrido hacia cualquier dirección en cualquier nodo, ya que todos están conectados entre sí. </p></font>
+            </center>
+        </div>
+    </center>
+    
+    <center>
+        <div id="boton2" style="margin-top: 100px;">
+            <center>
+                <font color="#fff"><h2 id="letrascajas">PILA (STACK)</h2></font>
+            </center>
+        </div>
+    </center>
+    
+    <center>
+        <div id="boton3" style="margin-top: 100px;">
+            <center>
+                <font color="#fff"><h2 id="letrascajas">COLA</h2></font>
+            </center>
+        </div>
+    </center>
+    <br>
+    <br>
+    <br>
+    
+    
+        <!-- JS PARTÍCULAS -->
+        <script src="js/particles.min.js"></script>
+        <script src="js/app.js"></script>
+    
+    </body>
+    </html>
