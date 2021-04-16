@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        #contenido-inferior{
+            margin: auto;
+            margin-top: -30px;
+            width: 960px;
+            height: 1740px;
+            background-color: white;
+        }
+        #contenido-superior{
+            margin: auto;
+            margin-top: -60px;
+            width: 960px;
+            height: 60px;
+            background-color: white;
+        }
+        #contenido-inferior-Pila{
+            margin: auto;
+            margin-top: 0px;
+            width: 960px;
+            height: 6330px;
+            background-color: white;
+        }
+
+        #codigo{
+
+            background-color: white;
+
+        }
+
+        h1{
+
+            font-family: Arial, Helvetica, sans-serif;
+
+        }
+
+    </style>
+    
+    <link rel="stylesheet" href="./css/styles.css ", type="text/css">
+
+    <link rel="stylesheet" href="highlight/styles/dracula.css">
+    <script src="highlight/highlight.pack.js"></script>
+    <script>hljs.highlightAll();</script>
+    
+    <title>
+        PILA PYTHON
+    </title>
+</head>
+    
+<body>
+    <div id="particles-js"></div>
+    
+    <div id="codigo">
+
+        <br>
+        <h1>IMPLEMENTACIÓN PILA DINÁMICA EN PYTHON: </h1>
+
+        <pre>
+
+            <code>
+
+    #---- @ @ @ @ @ @ @ @ IMPLEMENTACIÓN DE LAS CLASES NECESARIAS PARA LA IMPLEMENTACIÓN DE LA PILA @ @ @ @ @ @ @ @ ---
+
+    #---- IMPLEMENTACIÓN DE LA LISTA SIMPLEMENTE ENLAZADA ----
+    #---------- CLASE NODO DE LA LISTA SIMPLEMENTE ENLAZADA ----------
+    class ListNode: 
+    
+        #CONSTRUCTOR DE LA CLASE LISTNODE
+    
+        #Constructor de una lista vacía
+        def __init__(self):
+            #Atributos de la clase ListNode
+            self.object = None
+            self.next = None
+    
+        #MÉTODOS DE LA CLASE NECESARIOS PARA LA PILA
+    
+        #Método para asignar un objeto
+        def setObject(self, objeto):
+            self.object = objeto
+    
+        #Método para asignar el siguiente nodo
+        def enlazarSiguiente(self, nextNode):
+            self.next = nextNode
+    
+        #Método para obtener el nodo siguiente
+        def getNextTo(self):
+            return self.next
+        
+        #Método para obtener el objeto almacenado por el nodo
+        def getObject(self):
+            return self.object
+    
+        #Método para imprimir todos los nodos
+        def toString(self):
+            print("ListNode: { object: " + str(self.getObject()) + " } nextListNode --> " )
+            
+            if self.next != None:
+                self.next.toString()
+            else: 
+                print("ListNode: None")
+    
+    # ---------- CLASE LISTA SIMPLEMENTE ENLAZADA ----------
+    class List: 
+        #CONSTRUCTOR DE LA CLASE LIST
+    
+        #Constructor de una lista vacía
+        def __init__(self):
+            #Atributos de la clase List
+            self.head = None; 
+            self.tail = None; 
+            self.size = 0; 
+    
+        #MÉTODOS DE LA CLASE NECESARIOS PARA LA PILA
+    
+        #Método para insertar un objeto desúes de la cola de la lista
+        def insertTail(self, objeto):
+            if self.isEmpty(): 
+                #Si la cabeza es nula, se crea un nodo
+                temp = ListNode()
+                temp.setObject(objeto)
+                #La cabeza será el nuevo nodo
+                self.head = temp
+                #La cola será igual a la cabeza
+                self.tail = self.head
+                #Se aumenta el valor de size
+                self.size = self.size +1
+            else:
+                #Se crea un nuevo nodo
+                temp = ListNode()
+                temp.setObject(objeto)
+                #El siguiente elemento a la actual cola va a ser el nuevo nodo
+                self.tail.next = temp
+                #El valor de cola es tomado por el nuevo nodo
+                self.tail = temp
+                #Se aumenta el valor de size
+                self.size = self.size +1
+                
+        
+        #Mëtodo para añadir un objeto a la lista
+        def add(self, objeto):
+            if objeto != None: 
+                #Si el objeto no es nulo, se llama el método para insertar por la cola
+                self.insertTail(objeto)
+        
+        #Método para limpiar la lista (Convertir la lista a nula)
+        def clear(self):
+            self.head = None
+            self.tail = None
+            self.size = 0
+        
+        #Método para obtener el tamaño de la lista
+        def getSize(self):
+            return self.size
+        
+        #Método para saber si la lista está vacía
+        def isEmpty(self):
+            #Si el puntero de la cabeza es Null (None) la lista está vacía
+            return self.head == None
+        
+        #Método para imprimir la lista
+        def listToString(self):
+            #Se crea un nodo temporal que empezará en la cabeza de la lista
+            temp = ListNode()
+            temp = self.head
+            #Se llama al método de ListNode tostring() que imprime la información de todos los nodos
+            temp.toString()
+        
+        #Método para ordenar una lista
+        def sortList(self):
+            #Se crea una nueva lista
+            sortedList = List()
+    
+            #Variables para recorrer la LISTA DESORDENADA
+            temp = ListNode()
+            temp = self.getHead()
+    
+            #Lista de Python para almacenar todos los objetos de la Lista desordenada
+            allObjects = []
+    
+            #Se recorre la lista desordenada para obtener todos los objetos
+            for i in range(1, self.getSize() +1):
+                objeto = temp.getObject()
+                allObjects.append(objeto)
+    
+                temp = temp.getNextTo()
+    
+            #Se ordena la lista de Python
+            allObjects.sort()
+    
+            #Se recorre la lista de Python y se agrega a "mi lista"
+            for objetoOrdenado in allObjects[0 : self.getSize()+1]:
+                sortedList.add(objetoOrdenado)
+            
+            #Se retorna la lista ordenada
+            return sortedList
+    
+        
+    #---- @ @ @ @ @ @ @ @ IMPLEMENTACIÓN DE LA PILA @ @ @ @ @ @ @ @ ---
+    
+    #NODO DE LA PILA
+    
+    class stack_Node: 
+        
+        #Constructor de la clase
+        def __init__(self):
+            #Atributos del nodo de la pila
+            self.object = None; 
+            self.next = None; 
+        
+        #Métodos de la clase
+    
+        #Método para enlazar al siguiente nodo(Nodo de abajo en la pila)
+        def enlazarSiguiente(self, siguiente): 
+            self.next = siguiente
+        
+        #Método para cambiar el objeto almacenado
+        def setObject(self, objeto): 
+            self.object = objeto
+        
+        #Método para obtener el objeto almacenado
+        def getObject(self): 
+            return self.object
+        
+        #Método para obtener el siguiente nodo (Nodo de abajo)
+        def getNextNode(self):
+            return self.next
+    
+        #Método para imprimir la secuencia de nodos
+        def toString(self):
+            print("StackNode: { object: " + str(self.getObject()) + " } nextListNode --> " )
+            
+            if self.next != None:
+                self.next.toString()
+            else: 
+                print("ListNode: None")
+    
+    
+    #PILA
+    
+    class stack: 
+    
+        #Constructor de la clase
+        def __init__(self):
+            #Atributos de la clase List
+            self.top = None; 
+            self.size = 0; 
+        
+        #Métodos de la pila
+    
+        #Método para anular la pila (vaciar)
+        def clear(self):
+            self.top = None
+            self.size = 0 
+    
+        #Método para saber si la pila está vacía
+        def isEmpty(self):
+            #Si la cima de la pila es vacía, la pila es nula
+            return self.top == None  
+        
+        #Método par obterner el objeto de la cima de la pila
+        def peek(self):
+            return self.top.object
+        
+        #Método para agregar un objeto a la pila
+        def push(self, objeto): 
+            if self.top == None: 
+                #Si la cima es nula, el objeto se agrega como la cima de la pila
+    
+                #Se crea el nuevo nodo
+                newTop = stack_Node()
+                newTop.setObject(objeto)
+    
+                #Se asigna como la cima
+                self.top = newTop
+                self.size = self.size + 1
+            else: 
+                #Si la cima no es nula, el objeto se añadirá en la cima, y se enlazará a la anterior cima
+                
+                #Se crea el nuevo nodo
+                newTop = stack_Node()
+                newTop.setObject(objeto)
+    
+                #Se enlaza a la anterior cima
+                newTop.next = self.top
+    
+                #Se asigna como la cima
+                self.top = newTop
+                self.size = self.size + 1
+        
+        #Método para obtener el tamaño de la pila
+        def getSize(self): 
+            return self.size
+        
+        #Método para sacar un objeto de la pila
+        def pop(self):
+    
+            retorno = None
+    
+            if self.top != None: 
+                if self.top.object != None: 
+                    #Se retorna el objeto
+                    retorno = self.top.object
+                    #Se elimina el objeto
+                    self.top = self.top.next
+            
+            return retorno
+    
+        #Método para buscar un objeto dentro de la pila
+        def search(self, objeto): 
+            #Objeto para "recorrer la pila"
+            current = None
+    
+            #Retorno, por defecto es falso
+            retorno = False
+    
+            #Pila para almacenar los objetos a los que se les hace pop de manera temporal
+            tempPila = stack()
+    
+            #Varible que almacena el size original de la pila
+            originalSize = self.size
+    
+            #For para recorrer la pila en busca del objeto
+            for i in range(1, originalSize +1):
+    
+                #Se van sacando los objetos
+                current = self.pop()
+    
+                #Se guardan en la pila temporal
+                tempPila.push(current)
+    
+                if current == objeto:
+                    #Si se encontró el objeto, se retorna true y se rompe el cilo
+                    retorno = True
+                    break; 
+            
+            #Se recorre la pila temporal para regresar los objetos a la pila original
+    
+            #Variable que almacena el size original de la pila temporal
+            tempStackSize = tempPila.size
+    
+            for i in range(1, tempStackSize +1): 
+                self.push(tempPila.pop())
+    
+            return retorno
+    
+        #Método para invertir el orden de la pila
+        def reverse(self): 
+            #Se crea una lista simplemente enlazada para almacenar los objetos de la pila
+            tempSimpleList = List()
+    
+            #Variable que almacena el size original de la pila
+            originalStackSize = self.size
+    
+            #Se hace pop a cada elemento de la pila y se almacena en la lista simplemente enlazada
+            for i in range(0, originalStackSize+1):
+                tempSimpleList.add(self.pop())
+            
+            #Se añade cada objeto de la lista a la pila de nuevo
+            tempNode = ListNode
+            tempNode = tempSimpleList.head
+    
+            for j in range(0, originalStackSize): 
+                self.push(tempNode.object)
+                tempNode = tempNode.next
+            
+        
+        #Método para ordenar todos los elementos de la pila
+        def sort(self): 
+            #Lista de Python para almacenar todos los objetos
+            allObjects = []
+    
+            #Se vacía la pila para agregar los objetos a la lista de python
+    
+            stackOriginalSize = self.size
+    
+            for i in range(0, stackOriginalSize): 
+                allObjects.append(self.pop())
+    
+            #Se ordena la lista de Python
+            allObjects.sort()
+    
+            #Se recorre la lista de Python para agregar los objetos a la pila de nuevo
+            for objetoOrdenado in allObjects[0 : stackOriginalSize+1]:
+                self.push(objetoOrdenado)
+    
+        #Método para imprimir todos los nodos de la pila
+        def toString(self): 
+            if self.top != None: 
+                self.top.toString()
+            else:
+                print(Null)
+    
+
+            </code>
+
+        </pre>
+
+    </div>
+
+    <script src="js/particles.min.js"></script>
+    <script src="js/app.js"></script>
+
+</body>
+</html>
