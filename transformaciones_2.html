@@ -2,14 +2,356 @@
 
     <head>
 
-        <title>
-            DE CÓDIGO A DIAGRAMA
-        </title>
+        <style>
+        </style>
+        
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="./css/styles.css ", type="text/css">
+    
+        <link rel="stylesheet" href="/implementaciones/JAVA/highlight/styles/dracula.css">
+        <script src="/implementaciones/JAVA/highlight/highlight.pack.js"></script>
+        <script>hljs.highlightAll();</script>
+    
+        <title>::TRANSFORMACIONES CÓDIGO A DIAGRAMA::</title>
+        <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    
+        <script src="vis/vis-4.21.0/dist/vis.min.js"></script>
+        <link href="vis/vis-4.21.0/dist/vis.min.css" rel="stylesheet" type="text/css" />
+    
+        <style type="text/css">
+    
+            #mynetwork {
+                width: 1200px;
+                height: 600px;
+                border: 1px solid black;
+            }
+    
+            #globalContainer{
+    
+                margin-top: -20px;
+                width: 80%;
+                background-color: white;
+                padding-left: 40px;
+                margin: 0 auto; 
+    
+            }
+    
+            body{
+    
+                overflow-x: hidden;
+    
+            }
+    
+        </style>
 
     </head>
 
     <body>
         
+        <!-- PARTÍCULAS -->
+        <div id="particles-js"></div>
+
+        |<!-- MENÚ DE NAVEGACIÓN -->
+        <div class="container" id="contenido-superior">
+
+            <table id="img_table" align="center"> 
+            <tr>
+                <td>
+                    <a id="a2" href="prueba.html" target="_blank">
+                        <h2 class="container" id ="letras" style="margin-left: 40px;"><a href="prueba.html" id="a2"><span>INICIO</span></a></h2>
+                    </a>
+                </td>
+                <td>
+                    <a id="a3" href="teoria.html" target="_blank">
+                        <h2 class="container" id ="letras" style="margin-left: 40px;"><a href="implementaciones.html" id="a3"><span>IMPLEMENTACIONES</span></a></h2>
+                    </a>
+                </td>
+                <td>
+                    <a id="a4" href="transformaciones.html">
+                        <h2 class="container" id ="letras" style="margin-left: 40px;"><a href="transformaciones.html" id="a4"><span>TRANSFORMACIONES D/C </span></a></h2> 
+                    </a>
+                </td>
+                <td>
+                  <a id="a4" href="transformaciones_2.html">
+                      <h2 class="container" id ="letras" style="margin-left: 40px;"><a href="transformaciones_2.html" id="a4"><span>TRANSFORMACIONES C/D </span></a></h2> 
+                  </a>
+              </td>
+                
+            </tr>
+        </table>
+      
+        </div>
+        
+        <br>
+
+       <div id="globalContainer">
+
+            <br>
+            <p>ESCRIBA EL CÓDIGO (JAVA) QUE QUIERE TRANSFORMAR A DIAGRAMA:</p>
+
+            <!-- CUADRO DE TEXTO PARA RECIBIR EL CÓDIGO-->
+            <textarea id="txt_CodeInput" cols="168" rows="15"></textarea>
+            <br><br>
+
+            <!-- BOTÓN QUE DISPARA LA ACCIÓN PARA GENERAR EL GRAFO-->
+            <button id="btn_generate" onclick="generateGraph()">GENERAR GRÁFO!</button>
+
+            <h1>AQUÍ APARECERÁ EL GRAFO</h1>
+            <center>
+            <div id="mynetwork"></div>
+            </center>
+            <br><br>
+
+       </div>
+
+       <!-- SCRIPT QUE REALIZA LA TRANFORMACIÓN-->
+       <script>
+
+        // ----- CREACIÓN DEL GRAFO ----
+
+        // create an array with nodes
+        var nodes = new vis.DataSet([
+        
+        ]);
+
+        // create an array with edges
+        var edges = new vis.DataSet([
+
+        ]);
+
+        // create a network
+        var container = document.getElementById("mynetwork");
+        var data = {
+        nodes: nodes,
+        edges: edges,
+        };
+        var options = {};
+        var network = new vis.Network(container, data, options);
+
+        //Contador para asignar ID
+        var contadorID = 2; 
+
+        function generateGraph(){
+
+            //Código ingresado por el usuario
+            var codeInput = document.getElementById("txt_CodeInput").value; 
+
+            //Se separa el código por cada salto de línea
+            var separatedCode = codeInput.split(/\n/);
+
+            //Variable para limpiar el código
+            var stringSalida = ""; 
+
+            //Se eliminan los saltos de línea
+            separatedCode.forEach(element => {
+                if(element != ""){
+
+                    stringSalida = stringSalida + " <br> " + element
+
+                }
+            });
+
+            //SE ANALIZA EL CÓDIGO PARA SEPARAR LA CLASE, LOS ATRIBUTOS Y LOS MÉTODOS
+
+            var clase = ""; 
+            var atributos = ""; 
+            var metodo = ""; 
+
+            //Se eliminan los saltos de línea del código ingresado
+            var codigoLimpioArray = stringSalida.split("<br>"); 
+            
+            codigoLimpioArray.forEach(element => {
+
+                if(element != " "){
+                    
+                    var lineaLimpia = element.trim()
+
+                    //Separar la linea limpia por "palabras"
+                    
+                    var palabras = lineaLimpia.split(" ")
+
+                    // ----- Identificar si se trata de la clase -----
+                    if(palabras[0] == "public" && palabras[1] == "class"){
+
+                        clase = palabras[2]; 
+
+                        //Se agrega la clase al grafo
+
+                        //Se crea el nuevo nodo
+                        var node = {id:1, label: clase, color: {background:"#E74C3C", border: "#000000"}}; 
+                        nodes.add(node); 
+                        
+                        //Refrescar el dibujo
+                        var network = new vis.Network(container, data, options);
+
+                    }else{
+
+                        // ----- Identificar si se trata de un atributo de la clase -----
+
+                        var temp = palabras[2]; 
+                        var atributo = ""; 
+
+                        if(palabras[0] == "public" && temp[temp.length-1] == ";"){
+
+                            temp = temp.replace(';', ''); 
+
+                            atributo = palabras[1] + " " + temp; 
+
+                            //Agregar el nuevo nodo al grafo
+                            var node = {id:contadorID, label: atributo, color: {background:"#E7A93C", border: "#000000"}}; 
+                            nodes.add(node); 
+
+                            //Agregar el enlace entre los nodos
+                            edges.add({from:1, to:contadorID});
+
+                            contadorID = contadorID+1; 
+
+                            //Refrescar el dibujo
+                            var network = new vis.Network(container, data, options);
+
+                        }else{
+
+                            // ----- Identificar si se trata de un método de la clase ----
+
+                            var temp = palabras[2]; 
+                            var metodo = ""; 
+
+                            if(palabras[0] == "public" && temp.includes("(")){
+
+                                // ----- Identificar si se trata de un método sin parámetros
+
+                                if(palabras.length == 4){
+
+                                    metodo = palabras[2]; 
+
+                                    //Crear el nodo en el grafo
+                                    var node = {id:contadorID, label:metodo, color:{background:"#E7E43C", border: "#000000"}};
+                                    nodes.add(node);
+                                    
+                                    //Crear los enlaces
+                                    edges.add({from:1, to:contadorID});
+
+                                    var idMetodo = contadorID; 
+                                    
+                                    contadorID = contadorID+1; 
+
+                                    //Crear los nodos de retorno y parámetros (vacío)
+
+                                    var node2 = {id:contadorID, label:palabras[1], color:{background:"#3CE7CA", border: "#000000"}};
+                                    nodes.add(node2);
+
+                                    edges.add({from:idMetodo, to:contadorID}); 
+                                    contadorID = contadorID+1; 
+
+                                    var node3 = {id:contadorID, label:"", color:{background:"#6BE73C", border: "#000000"}}
+                                    nodes.add(node3); 
+                                    
+                                    edges.add({from:idMetodo, to:contadorID}); 
+                                    contadorID = contadorID+1; 
+
+                                    //Refrescar el dibujo
+                                    var network = new vis.Network(container, data, options);
+                                    
+
+                                }else{
+
+                                    //En caso de que sea un métoco CON PARÁMETROS
+                                    metodo = ""; 
+
+                                    for(var i=0; i<palabras[2].length; i++){
+
+                                        if((palabras[2])[i] != "("){
+
+                                            metodo = metodo + (palabras[2])[i]; 
+
+                                        }else{
+
+                                            break; 
+
+                                        }
+
+                                    }
+
+                                    //Obtener los atributos del método
+
+                                    //Encontrar dónde inicia el paréntesis de apertura
+                                    var posicion = 0; 
+
+                                    for(var i=0; i<lineaLimpia.length; i++){
+
+                                        if(lineaLimpia[i] == "("){
+
+                                            posicion = i+1; 
+                                            break; 
+
+                                        }
+
+                                    }
+
+                                    //Identificar los parámetros, desde el paréntesis de apertura hasta el de cierre
+
+                                    var parametros = ""; 
+
+                                    for(var i=posicion; i<lineaLimpia.length; i++){
+
+                                        if(lineaLimpia[i] != ")"){
+
+                                            parametros = parametros + lineaLimpia[i]; 
+
+                                        }else{
+
+                                            break; 
+
+                                        }
+
+                                    }
+
+                                    //Añadir el método, con sus parámetros y retorno al grafo
+                                    var node = {id:contadorID, label:metodo, color:{background:"#E7E43C", border: "#000000"}}; 
+                                    nodes.add(node);
+                                    
+                                    //Crear los enlaces
+                                    edges.add({from:1, to:contadorID});
+                                    
+                                    var idMetodo = contadorID; 
+                                    contadorID = contadorID +1; 
+
+                                    //Crear los nodos del retorno y los parámetros
+                                    var node2 = {id:contadorID, label:palabras[1], color:{background:"#3CE7CA", border: "#000000"}}; 
+                                    nodes.add(node2);
+                                    
+                                    edges.add({from:idMetodo, to:contadorID});
+                                    contadorID = contadorID +1; 
+
+                                    var node3 = {id:contadorID, label:parametros, color:{background:"#6BE73C", border: "#000000"}};
+                                    nodes.add(node3);
+                                    
+                                    edges.add({from:idMetodo, to:contadorID});
+                                    contadorID = contadorID +1; 
+
+                                    //Refrescar el dibujo
+                                    var network = new vis.Network(container, data, options);
+
+                                }
+
+                            }
+
+                        }
+
+                    }
+
+                }
+
+            });
+
+        }
+
+    </script>
+
+        <script src="js/particles.min.js"></script>
+        <script src="js/app.js"></script>
+
+
     </body>
 
 </html>
