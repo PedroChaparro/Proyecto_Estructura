@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        #contenido-inferior{
+            margin: auto;
+            margin-top: -30px;
+            width: 960px;
+            height: 1740px;
+            background-color: white;
+        }
+        #contenido-superior{
+            margin: auto;
+            margin-top: -60px;
+            width: 960px;
+            height: 60px;
+            background-color: white;
+        }
+        #contenido-inferior-Pila{
+            margin: auto;
+            margin-top: 0px;
+            width: 960px;
+            height: 6330px;
+            background-color: white;
+        }
+
+        #codigo{
+
+            background-color: white;
+
+        }
+
+        h1{
+
+            font-family: Arial, Helvetica, sans-serif;
+
+        }
+
+    </style>
+    
+    <link rel="stylesheet" href="./css/styles.css ", type="text/css">
+
+    <link rel="stylesheet" href="highlight/styles/dracula.css">
+    <script src="highlight/highlight.pack.js"></script>
+    <script>hljs.highlightAll();</script>
+    
+    <title>
+        LISTA DOBLE JAVA
+    </title>
+</head>
+    
+<body>
+    <div id="particles-js"></div>
+    
+    <div id="codigo">
+
+        <br>
+        <h1>IMPLEMENTACIÓN LISTA CIRCULAR SIMPLE: </h1>
+
+        <pre>
+
+            <code>
+
+    package Circular;
+
+    public class Nodo{
+
+        int dato;
+        Nodo next;
+    
+        public Nodo(int d){
+            dato = d;
+            next = this;
+        }
+    }
+
+    package Circular;
+    public class ListaCircular {
+    
+        Nodo last;
+    
+        public ListaCircular(){
+            last = null;
+        }
+    
+        //Metodo para saber cuando la lista está vacia
+    
+        public boolean isEmpty(){
+            return last == null;
+        }
+    
+        //Metodo para insertar Nodos
+    
+        public ListaCircular insert(int element){
+            Nodo nuevo = new Nodo(element);
+            if(last != null){
+                nuevo.next = last.next;
+                last.next = nuevo;
+            }
+            last = nuevo;
+            return this;
+        }
+    
+        //Metodo para mostrar la lista
+    
+        public void showList(){
+            Nodo aux = last.next;
+            String cadena = "";
+            do{  
+                cadena = cadena + "{ " + aux.dato + " } -> ";   
+            }while(aux != last.next);
+            System.out.println("Mostrando la lista circular");
+        }
+    
+        //Metodo para eliminar un Nodo de la lista
+    
+        public boolean remove(int element){
+            Nodo actual;
+            boolean find = false;
+            actual = last;
+            while(actual.next != last && !find){
+                find = (actual.next.dato == element);
+                if(!find){
+                    actual = actual.next;
+                    if(find){
+                        Nodo aux = actual.next;
+                        if(last == last.next){
+                            last = null;
+                        }else{
+                            if(aux == last){
+                                last = actual;
+                            }
+                            actual.next = aux.next;
+                        }
+                        aux = null;
+                    }
+                    return find == true;
+                }
+            }
+            return find;
+        }
+    }
+            </code>
+
+        </pre>
+
+    </div>
+
+    <script src="js/particles.min.js"></script>
+    <script src="js/app.js"></script>
+
+</body>
+</html>
