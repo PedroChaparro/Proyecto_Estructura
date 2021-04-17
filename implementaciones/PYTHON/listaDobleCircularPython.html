@@ -45,7 +45,7 @@
     <script>hljs.highlightAll();</script>
     
     <title>
-        LISTA DOBLE PYTHON
+        LISTA CIRCULAR DOBLE PYTHON
     </title>
 </head>
     
@@ -55,7 +55,7 @@
     <div id="codigo">
 
         <br>
-        <h1>IMPLEMENTACIÓN LISTA DOBLEMENTE ENLAZADA:</h1>
+        <h1>IMPLEMENTACIÓN DE LA LISTA CIRCULAR DOBLEMENTE ENLAZADA: </h1>
 
         <pre>
 
@@ -98,24 +98,18 @@
             return self.object
     
         def toString(self): 
+    
             print("ListNode: { object: " + str(self.getObject()) + " } nextListNode --> " )
             
-            if self.next != None:
-                self.next.toString()
-            else: 
-                print("ListNode: None")
         
         def toStringINV(self): 
+            
             print("ListNode: { object: " + str(self.getObject()) + " } beforeListNode --> " )
             
-            if self.before != None:
-                self.before.toStringINV()
-            else: 
-                print("ListNode: None")
     
-    # -------- Creación de la clase lista doblemente enlazada -------- 
+    # -------- Creación de la clase lista circular doblemente enlazada -------- 
     
-    class list: 
+    class circular_list: 
     
         #CONSTRUCTOR DE LA CLASE LIST
     
@@ -133,6 +127,11 @@
             #Si el puntero de la cabeza es Null (None) la lista está vacía
             return self.head == None
     
+        #Mëtodo para agregar en enlace de la cabeza a la cola y de la cola a la cabeza cada vez que se necesite
+        def toCircularList(self): 
+            self.head.before = self.tail
+            self.tail.next = self.head
+        
         #Método para insertar un objeto por la cola de la lista
         def insertTail(self, objeto):
     
@@ -157,6 +156,10 @@
                 temp.before = self.tail
                 self.tail = temp
     
+                # ///SE LLAMA AL MÉTODO PARA HACER LOS ENLAZES PROPIOS DE UNA LISTA CIRCULAR
+    
+                self.toCircularList()
+    
                 #Se aumenta el valor del size
                 self.size = self.size +1
         
@@ -168,17 +171,43 @@
     
         #Método para inprimir la lista en forma de string
         def toString(self):
-            if self.head != None:
-                self.head.toString()
+            
+            if self.head != None: 
+            
+                #Nodo para iterar la lista
+                temp = listNode()
+                temp = self.head
+    
+                while(temp != self.tail):
+                    #Mientras que no se llegue a la cola, se sigue iterando
+                    temp.toString()
+                    temp = temp.next
+                
+                #Se imprime la cola
+                temp.toString()
+    
             else: 
-                print("NONE")
+                print("None")
         
-        #Método para imprimir la lista comenzando desde la cola
-        def toStringINV(self):
+        #Método para imprimir la lista en forma de String comenzando desde la cola hasta la cabeza
+        def toStringINV(self): 
+    
             if self.tail != None: 
-                self.tail.toStringINV()
+    
+                #Nodo para iterar la lista
+                temp = listNode()
+                temp = self.tail
+    
+                while(temp != self.head):
+                    #Mientras que no se llegue a la cabeza, se sigue iterando
+                    temp.toString()
+                    temp = temp.before
+    
+                #Se imprime la cabeza
+                temp.toString()
+    
             else: 
-                print("NONE")
+                print("None")
         
         #Método para obtener el tamaño de la lista
         def getSize(self):
@@ -216,7 +245,8 @@
     
             encontrado = False; 
     
-            for i in range(1, self.size+1):
+            #Al ser una lista circular, debe tener un acondición de parada
+            while(temp != self.tail): 
                 if temp.getObject() == objeto:
                     #Si se encuentra un objeto igual al buscado, se retorna el nodo que lo contiene
                     encontrado = True; 
@@ -224,6 +254,14 @@
                 else:
                     #Se pasa al siguiente nodo para seguir buscando
                     temp = temp.next
+            
+            #Comprobación para el nodo cola
+            if temp.getObject() == objeto:
+                #Si se encuentra un objeto igual al buscado, se retorna el nodo que lo contiene
+                encontrado = True; 
+            else:
+                #Se pasa al siguiente nodo para seguir buscando
+                temp = temp.next
             
             if encontrado == True: 
                 return temp
@@ -243,7 +281,8 @@
             beforeTemp = listNode()
             beforeTemp = None
     
-            for i in range(1, self.size+1):
+            while(temp != self.tail):
+    
                 if temp.object == node.object:
                     #Si se encontró el nodo a eliminar
                     #Se verifica si es la cabeza
@@ -251,6 +290,7 @@
                         #La cabeza ahora será el nodo que antes era siguiente a la cabeza
                         self.head = (self.head).next
                         self.head.before = None
+                        self.toCircularList()
     
                         #Se cambiar la variable de retorno a True
                         retorno = True
@@ -267,13 +307,15 @@
                 #Se sigue iterando
                 beforeTemp = temp
                 temp = temp.getNextTo()
-        
-        
+                
+                #Se sigue iterando
+                beforeTemp = temp
+                temp = temp.getNextTo()
+                    
 
             </code>
 
         </pre>
-
 
     </div>
 
