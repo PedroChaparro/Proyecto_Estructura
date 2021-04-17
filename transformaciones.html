@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+    </style>
+    
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="./css/styles.css ", type="text/css">
+
+    <link rel="stylesheet" href="/implementaciones/JAVA/highlight/styles/dracula.css">
+    <script src="/implementaciones/JAVA/highlight/highlight.pack.js"></script>
+    <script>hljs.highlightAll();</script>
+
+    <title>::TRANSFORMACIONES::</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+
+    <script src="vis/vis-4.21.0/dist/vis.min.js"></script>
+    <link href="vis/vis-4.21.0/dist/vis.min.css" rel="stylesheet" type="text/css" />
+
+    <style type="text/css">
+
+        #mynetwork {
+            width: 1200px;
+            height: 600px;
+            border: 1px solid black;
+        }
+
+        #globalContainer{
+
+            margin-top: -20px;
+            width: 80%;
+            background-color: white;
+            padding-left: 40px;
+
+        }
+
+        body{
+
+            overflow-x: hidden;
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <!-- PARTÍCULAS -->
+    <div id="particles-js"></div>
+
+    |  <!-- MENÚ DE NAVEGACIÓN -->
+    <div class="container" id="contenido-superior">
+
+        <table id="img_table" align="center"> 
+        <tr>
+            <td>
+                <a id="a2" href="inicio.html" target="_blank">
+                    <h2 class="container" id ="letras"><a href="home.html" id="a2"><span>INICIO</span></a></h2>
+                </a>
+            </td>
+            <td>
+                <a id="a3" href="teoria.html" target="_blank">
+                    <h2 class="container" id ="letras"><a href="teoria1.html" id="a3"><span>TEORÍA</span></a></h2>
+                </a>
+            </td>
+            <td>
+                <a id="a4" href="transformaciones.html">
+                    <h2 class="container" id ="letras"><a href="implementaciones.html" id="a4"><span>Transformaciones</span></a></h2> 
+                </a>
+            </td>
+        </tr>
+    </table>
+
+    </div>
+    <br>
+
+      <!-- CONTENIDO DE LA PÁGINA -->
+
+      <div id="globalContainer">
+
+        <!-- GENERACIÓN DEL NODO PRINCIPAL (CLASE) -->
+        <br>
+        <p>A CONTINUACIÓN INGRESE EL NOMBRE DE LA CLASE: </p>
+        <input type="text" id="txt_ClassName" placeholder="NOMBRE CLASE"> 
+        <button id="btn_ClassName" onclick="insertPrincipal()">AGREGAR CLASE!</button>
+        <br> <br>
+
+        <!-- GENERACIÓN DE LOS NODOS ATRIBUTOS -->
+        <p>INGRESO DE ATRIBUTOS: </p>
+        <input type="text" id="txt_AttributeName" placeholder="tipo NombreAributo" disabled="true">
+        <button id="btn_AttributeName" disabled="true" onclick="insertAttribute()">DIBUJAR ATRIBUTO!</button>
+        <br><br>
+
+        <!-- GENERACIÓN DE LOS NODOS MÉTODOS-->
+        <div id="metodos">
+        <p>INGRESO DE MÉTODOS: </p>
+        <input type="text" id="txt_MetodoName" placeholder="NOMBRE MÉTODO" disabled="true">
+        <input type="text" id="txt_Return" placeholder="RETORNO (int, boolean...)" disabled="true">
+        <input type="text" id="txt_Parametros" placeholder="PARÁMETROS (Strig s...)" disabled="true">
+        <button id="btn_MetodoName" disabled="true" onclick="insertMetodo()">DIBUJAR MÉTODO!</button>
+        
+        </div>
+        <br><br>
+
+        <center>
+        <div id="mynetwork"></div>
+        </center>
+        <br><br>
+
+        <button id="btn_GenerarCodigo" onclick="printCode()"> GENERAR CÓDIGO! </button>
+
+        <div id="divGeneratedCode">
+
+            <pre style="display:inline">
+
+                <p id="resultados"></p>
+        
+            </pre>
+
+        </div>
+
+    </div>
+
+    <!-- GENERACIÓN DE GRAFO -->
+    <script>
+
+        //VARIABLE PARA ALMACENAR EL CÓDIGO QUE SE VA GENERANDO
+        var stringFinal = "";     
+        var codigoMetodos = "<br>    //MÉTODOS: <br>"; 
+        var codigoAtributos = "<br><br>     //ATRIBUTOS: <br>"; 
+
+        // create an array with nodes
+        var nodes = new vis.DataSet([
+        
+        ]);
+
+        // create an array with edges
+        var edges = new vis.DataSet([
+
+        ]);
+
+        // create a network
+        var container = document.getElementById("mynetwork");
+        var data = {
+        nodes: nodes,
+        edges: edges,
+        };
+        var options = {};
+        var network = new vis.Network(container, data, options);
+
+        //Variable para ir aumentando el id de los nodos Atributos
+
+        var contadorID = 2; 
+
+        //Función para insertar el nodo principal
+        function insertPrincipal (){
+
+            var value = document.getElementById("txt_ClassName").value; 
+            //Se crea el nuevo nodo
+            var node = {id:1, label: value, color: {background:"#E74C3C", border: "#000000"}}; 
+            nodes.add(node); 
+            
+            //Refrescar el dibujo
+            var network = new vis.Network(container, data, options);
+
+            //Deshabilitar el botón y la caja de texto
+            document.getElementById("btn_ClassName").disabled = true; 
+            document.getElementById("txt_ClassName").disabled = true; 
+
+            //Habilitar el botón y la caja de texto para ingresar atributos
+            document.getElementById("btn_AttributeName").disabled = false; 
+            document.getElementById("txt_AttributeName").disabled = false; 
+
+            //Habilitar el botón y la caja de texto para ingresar métodos
+            document.getElementById("btn_MetodoName").disabled = false; 
+            document.getElementById("txt_MetodoName").disabled = false; 
+
+            document.getElementById("txt_Return").disabled = false; 
+            document.getElementById("txt_Parametros").disabled = false; 
+
+            stringFinal = stringFinal + ("public class " + value + " {<br>"); 
+
+        }
+
+        //Función para insertar un nuevo atributo del nodo principal
+        function insertAttribute(){
+
+          var value = document.getElementById("txt_AttributeName").value;
+          
+          //Se crea el nuevo nodo
+          var node = {id:contadorID, label:value, color:{background:"#E7A93C", border: "#000000"}}; 
+          nodes.add(node);
+
+          //Agregar el enlace entre los nodos
+          edges.add({from:1, to:contadorID});
+
+          contadorID = contadorID +1; 
+
+          //Refrescar el dibujo
+          var network = new vis.Network(container, data, options);
+
+          //Eliminar el texto que quedó en el txt
+          document.getElementById("txt_AttributeName").value = ""; 
+
+          //Agregar el atributo a la variable de texto que almacena los atributos
+          codigoAtributos = codigoAtributos + "<br>     public " + value + ";"; 
+
+        }
+
+        //Función para insertar un nuevo nodo método del nodo principal
+        function insertMetodo(){
+
+          var value = document.getElementById("txt_MetodoName").value;
+          value = value + "()"; 
+
+          //---AGREGACIÓN DEL NUEVO MÉTODO ----
+
+          //Se crea el nuevo nodo
+          var node = {id:contadorID, label:value, color:{background:"#E7E43C", border: "#000000"}}; 
+          nodes.add(node);
+
+          value = document.getElementById("txt_MetodoName").value;
+          
+          //Agregar el enlace entre los nodos
+          edges.add({from:1, to:contadorID}); 
+
+          //Se almacena temporalmente el ID del metodo para agregarle los parámetros y el retorno
+          var metodoID = contadorID; 
+
+          //Se incrementa el contador para una proxima agregación
+          contadorID = contadorID +1; 
+
+          //---AGREGACIÓN PARÁMETROS Y RETORNO DEL NUEVO MÉTODO ----
+
+          //Se crea el nodo que guardará los parámetros
+
+          var parametros = document.getElementById("txt_Parametros").value;
+
+          var nodeParametro = {id:contadorID, label:parametros, color:{background:"#6BE73C", border: "#000000"}}
+          nodes.add(nodeParametro); 
+
+          //Se crean los enlaces desde el método hasta el nuevo nodo
+          edges.add({from:metodoID, to:contadorID}); 
+
+          contadorID = contadorID+1; 
+
+          //Se crea el nodo que guardará el tipo de retorno
+
+          var retorno = document.getElementById("txt_Return").value;
+
+          var nodeRetorno = {id:contadorID, label:retorno, color:{background:"#3CE7CA", border: "#000000"}};
+          nodes.add(nodeRetorno); 
+
+          //Se crean los enlaces desde el método hasta el nuevo nodo
+          edges.add({from:metodoID, to:contadorID}); 
+
+          contadorID = contadorID+1; 
+
+          //Refrescar el dibujo
+          var network = new vis.Network(container, data, options);
+
+          //Agregar el método a la variable de texto que almacena los atributos
+          if(parametros == "" && retorno == ""){
+
+            //Si los parámetros y el retorno del método son nulos
+            codigoMetodos = codigoMetodos + "<br>     public void " + value + " (){ <br><br><br>      }<br>"; 
+
+          }else{
+
+            //Si los parámetros no son nulos, pero el retorno sí
+            if(parametros != "" && retorno == ""){
+
+              codigoMetodos = codigoMetodos + "<br>     public void " + value + " ( " + parametros + " ){ <br><br><br>      }<br>"; 
+
+            }else{
+              
+              //Si el retorno no es nulo y los parámetros sí son nulos
+              if(retorno != "" && parametros==""){
+
+                var retornoSeparado = retorno.split(" "); 
+                
+                codigoMetodos = codigoMetodos + "<br>     public " + retornoSeparado[0] + " " + value + " ( ){ <br><br> " + "          " + retornoSeparado[0] + " retorno;<br><br>           return retorno;<br><br>     }<br>"; 
+
+              }else{
+                
+                var retornoSeparado = retorno.split(" "); 
+                //Si el retorno y los parámetros no son nulos
+                codigoMetodos = codigoMetodos + "<br>     public " + retornoSeparado[0] + " " + value + " ( " + parametros + " )" + "{ <br><br> " + "          " + retornoSeparado[0] + " retorno;<br><br>          return retorno;<br><br>     }<br>"; 
+
+              }
+
+            }
+
+          }
+
+          //Eliminar el texto que quedó en el txt
+
+          document.getElementById("txt_MetodoName").value = ""; 
+          document.getElementById("txt_Return").value = ""; 
+          document.getElementById("txt_Parametros").value = ""; 
+
+        }
+
+        function printCode(){
+
+          stringFinal = stringFinal + codigoAtributos +  "<br>" +codigoMetodos; 
+          document.getElementById("resultados").innerHTML = stringFinal + "<br><br>}"; 
+          
+        }
+
+    </script>
+
+    <script src="js/particles.min.js"></script>
+    <script src="js/app.js"></script>
+
+</body>
+
+</html>
