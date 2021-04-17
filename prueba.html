@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<html>
 <head>
     <style>
       
@@ -28,9 +29,8 @@
         #boton{
             margin-top: 45px;
             width: 240px;
-            height: 42px;
-            display: inline-block;
-            margin-left: 630px;
+            height: 42px; 
+            
         }
 
         #contentIndex{
@@ -44,7 +44,31 @@
           height: 70px;
           margin-top: 0px;
         }
-        
+
+        #container{
+
+          float: left;
+
+        }
+
+        #contentB{
+
+          float:right;
+
+        }
+
+        #boton{
+
+          float: right;
+          margin-right:340px;
+
+        }
+
+        body{
+
+          overflow-x: hidden;
+
+        }
 
 
     </style>
@@ -55,7 +79,7 @@
     <body>
             <div id="particles-js"></div>
 
-               |<!-- MENÚ DE NAVEGACIÓN -->
+    |<!-- MENÚ DE NAVEGACIÓN -->
     <div class="container" id="contenido-superior">
 
       <table id="img_table" align="center"> 
@@ -67,12 +91,12 @@
           </td>
           <td>
               <a id="a3" href="teoria.html" target="_blank">
-                  <h2 class="container" id ="letras" style="margin-left: 440px;"><a href="implementaciones.html" id="a3"><span>implementación</span></a></h2>
+                  <h2 class="container" id ="letras" style="margin-left: 440px;"><a href="implementaciones.html" id="a3"><span>IMPLEMENTACIONES</span></a></h2>
               </a>
           </td>
           <td>
               <a id="a4" href="transformaciones.html">
-                  <h2 class="container" id ="letras" style="margin-left: 370px;"><a href="transformaciones.html" id="a4"><span>Transformaciones</span></a></h2> 
+                  <h2 class="container" id ="letras" style="margin-left: 370px;"><a href="transformaciones.html" id="a4"><span>TRANSFORMACIONES D/C </span></a></h2> 
               </a>
           </td>
       </tr>
@@ -80,20 +104,32 @@
 
   </div>
 
+  <center>
+    <div>
+      <div class="container" id= "hombre">
+        <img src="img/hombre.jpg" style="height: 500px; margin-top: 0px; margin-left: 0.4px;">
+      </div>
+      
+      <div id="content">
+        <font color="White"><h1 id="letras2" style="margin-left: 955px; margin-top: -495px;">¿Qué es una Estructura de datos? </h1>
+          <font color="White"><h2 style="margin-left: 955px; margin-top: 20px;">Segun la ciencia de la computación, una <br><font color="yellow" id="letras3">Estructura de datos</font> es una forma particular<br>de organizar datos en una computadora con<br>el fin de ser utilizados de una manera<br>eficiente.<br><br>Sí te interesa saber mas sobre el tema<br>mi equipo ah preparado unas definiciones<br>qué te seran utiles, solo pulsa el <font id="letras4">Boton.</font></h2></h2></h2>   
+        
 
-            <div class="container" id= "hombre">
-              <img src="img/hombre.jpg" style="height: 500px; margin-top: 0px; margin-left: 0.4px;">
+
+      </div>
+
+      <div id="contentB">
+
+            <div id="boton">
+              <h1 id=letras-boton style="margin-top: 3px;"><a href="teoria1.html"><span>ver más</span></a></h1>
             </div>
-              <font color="White"><h1 id="letras2" style="margin-left: 955px; margin-top: -495px;">¿Qué es una Estructura de datos? </h1>
-              <hr style="margin-top: -10px; width: 540px; margin-left: 955px;">
-              <font color="White"><h2 style="margin-left: 955px; margin-top: 20px;">Segun la ciencia de la computación, una <br><font color="yellow" id="letras3">Estructura de datos</font> es una forma particular<br>de organizar datos en una computadora con<br>el fin de ser utilizados de una manera<br>eficiente.<br><br>Sí te interesa saber mas sobre el tema<br>mi equipo ah preparado unas definiciones<br>qué te seran utiles, solo pulsa el <font id="letras4">Boton.</font></h2></h2></h2>   
-                        
-              <center>
-                <div class="container" id="boton">
-                  <h1 class="container" id=letras-boton style="margin-top: 3px;"><a href="teoria1.html"><span>ver más</span></a></h1>
-                </div>
-              </center>
-        </div>
-        <script src="js/particles.min.js"></script>
-        <script src="js/app.js"></script>
-    </body>
+
+      </div>
+
+    </div>
+  </center>
+      <script src="js/particles.min.js"></script>
+      <script src="js/app.js"></script>
+
+</body>
+</html>
