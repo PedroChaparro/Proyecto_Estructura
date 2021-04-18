@@ -7,8 +7,8 @@
     <meta charset="utf-8">
     <link rel="stylesheet" href="./css/styles.css ", type="text/css">
 
-    <link rel="stylesheet" href="/implementaciones/JAVA/highlight/styles/dracula.css">
-    <script src="/implementaciones/JAVA/highlight/highlight.pack.js"></script>
+    <link rel="stylesheet" href="implementaciones/JAVA/highlight/styles/dracula.css">
+    <script src="implementaciones/JAVA/highlight/highlight.pack.js"></script>
     <script>hljs.highlightAll();</script>
 
     <title>::TRANSFORMACIONES DIAGRAMA A CÓDIGO::</title>
@@ -38,6 +38,12 @@
         body{
 
             overflow-x: hidden;
+
+        }
+
+        #divGeneratedCode{
+
+          width: 90%;
 
         }
 
@@ -120,9 +126,11 @@
 
         <div id="divGeneratedCode">
 
-            <pre style="display:inline">
+            <pre>
 
-                <p id="resultados"></p>
+                <code id="resultados">
+  .
+                </code>
         
             </pre>
 
@@ -272,14 +280,14 @@
           if(parametros == "" && retorno == ""){
 
             //Si los parámetros y el retorno del método son nulos
-            codigoMetodos = codigoMetodos + "<br>     public void " + value + " (){ <br><br><br>      }<br>"; 
+            codigoMetodos = codigoMetodos + "<br>     public void " + value + "() { <br><br><br>      }<br>"; 
 
           }else{
 
             //Si los parámetros no son nulos, pero el retorno sí
             if(parametros != "" && retorno == ""){
 
-              codigoMetodos = codigoMetodos + "<br>     public void " + value + " ( " + parametros + " ){ <br><br><br>      }<br>"; 
+              codigoMetodos = codigoMetodos + "<br>     public void " + value + "( " + parametros + " ) { <br><br><br>      }<br>"; 
 
             }else{
               
@@ -288,13 +296,13 @@
 
                 var retornoSeparado = retorno.split(" "); 
                 
-                codigoMetodos = codigoMetodos + "<br>     public " + retornoSeparado[0] + " " + value + " ( ){ <br><br> " + "          " + retornoSeparado[0] + " retorno;<br><br>           return retorno;<br><br>     }<br>"; 
+                codigoMetodos = codigoMetodos + "<br>     public " + retornoSeparado[0] + " " + value + "( ) { <br><br> " + "          " + retornoSeparado[0] + " retorno;<br><br>           return retorno;<br><br>     }<br>"; 
 
               }else{
                 
                 var retornoSeparado = retorno.split(" "); 
                 //Si el retorno y los parámetros no son nulos
-                codigoMetodos = codigoMetodos + "<br>     public " + retornoSeparado[0] + " " + value + " ( " + parametros + " )" + "{ <br><br> " + "          " + retornoSeparado[0] + " retorno;<br><br>          return retorno;<br><br>     }<br>"; 
+                codigoMetodos = codigoMetodos + "<br>     public " + retornoSeparado[0] + " " + value + "( " + parametros + " )" + " { <br><br> " + "          " + retornoSeparado[0] + " retorno;<br><br>          return retorno;<br><br>     }<br>"; 
 
               }
 
