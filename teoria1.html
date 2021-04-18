@@ -82,7 +82,7 @@
                 <font color="#fff"><h2 id="letrascajas">LISTA SIMPLEMENTE ENLAZADA</h2></font>
                 <font color="#fff"><p align="justify" id="textP">Una lista simplemente enlazada es una de las estructuras de datos más básicas, 
                 consiste en una secuencia de nodos que están conectados mediante punteros al siguiente nodo, como se puede ver en la siguiente imágen:  </p></font>
-                <img src="img/SimpleLinkedList.jpg" alt="EJEMPLO DE LISTA SIMPLE" width="600" height="200">
+                <img src="img\listaSimpleEnlazada.jpg" alt="EJEMPLO DE LISTA SIMPLE" width="600" height="200">
                 <font color="#fff"><p align="justify" id="textP">Como se puede observar también en la anterior imagen, el nodo final (al cual llamamos cola), no tiene un 
                 nodo siguiente (su puntero a punta a Nulo), lo cual indica que al momento de hacer un recorrido a través de todos los nodos, este terminará al llegar a la cola.
                 </p></font>
@@ -108,7 +108,7 @@
                 <font color="#fff"><p align="justify" id="textP"> El funcionamiento de esta estructura está basado en la lista simplemente enlazada. Esta lista también
                 consiste en una secuencia de nodos que se conectan entre sí mediante punteros, pero la lista doble tiene una gran diferencia, y es que no existe un solo puntero,
                 ahora tenemos un segundo puntero que enlaza cada nodo a su anterior, como se aprecia en la siguiente imágen:  </p></font>
-                <img src="img/listaDobleSimple.jpg" alt="EJEMPLO DE LISTA SIMPLE" width="600" height="200">
+                <img src="img\listaDobleEnlazada.jpg" alt="EJEMPLO DE LISTA SIMPLE" width="600" height="200">
                 <br>
                 <font color="#fff"><p align="justify" id="textP"> Lo anterior nos permite comenzar a recorrer la lista desde la cola. Es importante tener en cuenta que 
                 si comenzamos el recorrido por la cabeza, este se acabará al llegar a la cola, ya que el siguiente nodo luego de la cola sigue siendo nulo. </p></font>
@@ -126,7 +126,7 @@
                 <font color="#fff"><p align="justify" id="textP"> Una lista circular simple es una lista simplemente enlazada sin fin, se dice que no tiene fin porque al momento de hacer el recorrido
                 luego de la cola, se pasa nuevamente a la cabeza. Lo anterior ocurre porque a diferencia de una lista simplemente enlazada normal, ahora la cola no apunta a Nulo, sino que apunta a la cabeza de la lista, 
                 lo cual se puede entender con mayor facilidad viendo la siguiente imágen:  </p></font>
-                <img src="img/listaDobleCircular.jpg" alt="EJEMPLO DE LISTA SIMPLE" width="600" height="200"><br>
+                <img src="img\listaSimpleCircular.jpg" alt="EJEMPLO DE LISTA SIMPLE" width="600" height="200"><br>
                 <font color="#fff"><h3 id="subtituloCaja" align="left">OPERACIONES BÁSICAS:</h2></font>
                 <font color="#fff"><p align="justify" id="textP"> Al tratarse de una lista, sus operaciones básicas son las mismas de la lista simple y doblemente enlazada, lo único a resaltar es que 
                 al momento de recorrer la lista, es necesario contar con una condición de parada, de lo contrario, se seguirá recorriendo la lista como si se tratara de un bucle. </p></font>
@@ -142,7 +142,7 @@
                 incluyendo la cabeza y la cola de la lista. Recordando la lista doblemente enlazada, el nodo anterior a la cabeza era nulo, y el nodo siguiente a la cola, era nulo, pero ahora, decimos
                 que el nodo anterior a la cabeza es la cola, y el nodo siguiente a la cola es la cabeza. <br><br>
                 Para un mejor entendimiento, veamos la siguiente imágen:  </p></font>
-                <img src="img/listaCircularDoble.jpg" alt="EJEMPLO DE LISTA SIMPLE" width="600" height="200"><br>
+                <img src="img\listaDobleCircular.jpg" alt="EJEMPLO DE LISTA SIMPLE" width="600" height="200"><br>
                 <font color="#fff"><h3 id="subtituloCaja" align="left">OPERACIONES BÁSICAS:</h2></font>
                 <font color="#fff"><p align="justify" id="textP"> Sigue conservando como mínimo las operaciones de las demás listas, pero hay dos consideraciones: <br><br>
                 1- Al igual que la lista circular simplemente enlazada es necesario tener una condición de parada, para evitar recorrer la lista en un bucle. <br> <br>
@@ -160,7 +160,7 @@
                     Los elementos de esta que querramos añadir o eliminar solo se podrán contactar por la parte superior
                     de la pila, a la cual llamamos cabeza. <br><br>
                     Podremos entender más fácilmente cómo se representa en la siguiente imágen:  </p></font>
-                    <img src="img\pilaStack.jpg" alt="EJEMPLO DE PILA" width="600" height="200"><br>
+                    <img src="img\pilaStack.jpg" alt="EJEMPLO DE PILA" width="432" height="216"><br>
                     <font color="#fff"><h3 id="subtituloCaja" align="left">OPERACIONES BÁSICAS:</h2></font>
                     <font color="#fff"><p align="justify" id="textP"> Una pila debe tener como mínimo, la capacidad de: <br><br>
                         - Saber si está vacía (Método IsEmpty() ) <br>
@@ -184,7 +184,7 @@
                     específico, de tal manero de que solo se pueden añadir elementos por un extremo, osea el final de la cola,
                     y eliminar o extraelos por el otro extremo de la misma, el cual se llama frente.<br><br>
                     Para un mejor entendimiento, como se representa en la siguiente imágen:  </p></font>
-                    <img src="img\ColaFunciones.jpg" alt="EJEMPLO DE COLA" width="600" height="200"><br>
+                    <img src="img\cola.jpg" alt="EJEMPLO DE COLA" width="540" height="270"><br>
                     <font color="#fff"><h3 id="subtituloCaja" align="left">OPERACIONES BÁSICAS:</h2></font>
                     <font color="#fff"><p align="justify" id="textP"> Una cola debe tener como mínimo, la capacidad de: <br><br>
                         - Saber si está vacía (Método IsEmpty() ) <br>
@@ -212,7 +212,7 @@
                     En este tipo de cola, la lista de elementos con mayor prioridad serán extraídos o usados antes que los subsiguientes en orden de prioridad. 
                     En caso de que los elementos tengan la misma prioridad, estos serán extraídos siguiento el FIFO (Primero que entró, el el primero en salir). 
                 </p></font><br>
-                <img src="img/colaPrioridad.png" alt="EJEMPLO DE COLA" width="600" height="300">
+                <img src="img/colaPrioridad.png" alt="EJEMPLO DE COLA" width="540" height="270">
                 <font color="#fff"><h3 id="subtituloCaja" align="left">OPERACIONES EXTRAS:</h2></font>
                 <font color="#fff"><p align="justify" id="textP"> 
 
@@ -231,6 +231,7 @@
                 <font color="#fff"><h2 id="letrascajas">ÁRBOL BINARIO</h2></font>
                 
          </p></font>
+         <img src="img\arbol.jpg" alt="EJEMPLO DE COLA" width="450" height="240"><br><br>
             </center>
         </div>
     </center>
@@ -250,7 +251,7 @@
                     Estos árboles soy muy eficientes, ya que permiten ahorrar parte de la recursividad al saber en qué lado está ubicado el nodo que 
                     buscamos. 
                 </p></font><br>
-                <img src="img/arbolBinarioBusqueda.png" alt="EJEMPLO DE COLA" width="320" height="200"><br><br>
+                <img src="img\arbolBB.jpg" alt="EJEMPLO DE COLA" width="450" height="240"><br><br>
                 <font color="#fff"><h3 id="subtituloCaja" align="left">OPERACIONES BÁSICAS:</h2></font>
                 <font color="#fff"><p align="justify" id="textP">
                     - Recorrido in-orden <br>
@@ -274,7 +275,7 @@
                     La anterior propiedad nos dice que las alturas de los árboles (Izquierdo y derecho) no pueden tener una diferencia de más de 1. Para que
                     un árbol pueda ser considerado AVL, el factor de equilibrio de cada sub-arbol debe encontrarse en el rango [-1,1].
                 </p></font><br>
-                <img src="img/arbolAVL.gif" alt="EJEMPLO DE COLA" width="380" height="280"><br><br>
+                <img src="img\treeAVL.jpg" alt="EJEMPLO DE COLA" width="470" height="276"><br><br>
                 <font color="#fff"><h3 id="subtituloCaja" align="left">OPERACIONES BÁSICAS:</h2></font>
                     <font color="#fff"><p align="justify" id="textP">
                         - Inserción AVL. <br>
