@@ -13,12 +13,12 @@ GML Theme - Meseta <meseta@gmail.com>
 }
 
 .hljs-keyword {
-  color: #FFB871;
+  color: #639CA3;
   font-weight: bold;
 }
 
 .hljs-built_in {
-  color: #FFB871;
+  color: #639CA3;
 }
 
 .hljs-literal {
@@ -30,7 +30,7 @@ GML Theme - Meseta <meseta@gmail.com>
 }
 
 .hljs-comment {
-  color: #5B995B;
+  color: #AAB0B1;
 }
 
 .hljs-string {

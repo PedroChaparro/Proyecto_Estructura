@@ -45,7 +45,7 @@
     <script>hljs.highlightAll();</script>
     
     <title>
-        LISTA SIMPLE C++
+        LISTA DOBLE C++
     </title>
 </head>
     
@@ -55,7 +55,7 @@
     <div id="codigo">
 
         <br>
-        <h1>NODO DE LA LISTA SIMPLEMENTE ENLAZADA:</h1>
+        <h1>NODO DE LA LISTA DOBLEMENTE ENLAZADA:</h1>
 
         <pre>
 
@@ -74,14 +74,14 @@
         private: 
             //Atributos de la clase
             int object; 
-            listNode* next; 
+            listNode* next; 		//Puntero al nodo siguiente
+            listNode* previous; 	//Puntero al nodo anterior
     
         public: 
             //Constructores de la clase
             listNode(); 
             listNode(int objeto); 
-            listNode(listNode* siguiente); 
-            listNode(int objeto, listNode* siguiente); 
+            listNode(int objeto, listNode* siguiente, listNode* previous); 
             
             //Métodos de la clase
             
@@ -92,13 +92,20 @@
                 
             }; 
             
+            //Método para asignar un nodo anterior
+            void enlazarAnterior(listNode* anterior){
+                
+                previous = anterior; 
+                
+            }; 
+            
             //Método para asignar un objeto al nodo
             
             void setObject(int objeto){
                 
                 object = objeto; 
                 
-            }
+            }; 
             
             //Método para obtener la dirección del nodo siguiente
             listNode* getNextTo(){
@@ -107,12 +114,19 @@
                 
             }; 
             
+            //Método para obtener la dirección del nodo anterior
+            listNode* getPreviousTo(){
+                
+                return previous; 
+                
+            }; 
+            
             //Método par obtener el objeto guardado por un nodo
             int getObject(){
                 
                 return object; 
                 
-            }
+            }; 
             
             //Método para saber si un nodo almacena un objeto dado 
             bool isEquals(int objeto){
@@ -134,43 +148,7 @@
                 
             }
             
-            //Método para imprimir la información de un nodo
-            
-            void showInformation(){
-                
-                cout << "ListNode: \n";
-                cout << "OBJETO ALMACENADO: ";
-                cout << object; 
-                cout << "\n"; 
-                cout << "OBJETO SIGUIENTE: ";
-                
-                //Se verifica si el siguiente nodo existe
-                
-                if(getNextTo() != 0){
-                    
-                    if(getNextTo() -> getObject() != 0){
-                    
-                    //Si el objeto del siguiente nodo no es nulo
-                    cout << getNextTo() -> getObject();  
-                    cout << "\n"; 
-                    
-                    }else{
-                        
-                        cout << "NONE\n"; 
-                        
-                    }
-                        
-                }else{
-                    
-                    cout << "NONE\n";
-                    
-                }
-                
-                
-                
-            }
-            
-            //Método para imprimir la información de todos los nodos existentes
+            //Método para imprimir la información de todos los nodos existentes (cabeza -> cola)
             
             void toString(){
             
@@ -193,11 +171,32 @@
                 
             }
             
+            //Método para imprimir la información de todos los nodos existentes en dirección contradia (cola -> cabeza) 
+            void toStringINV(){
+                
+                cout << "ListNode: \n";
+                cout << "OBJETO ALMACENADO: ";
+                cout << object; 
+                cout << "\n"; 
+                cout << "\ANTERIOR NODO --> \n\n";
+                
+                if(getPreviousTo() != 0){
+                        
+                    getPreviousTo() -> toStringINV(); 
+                    
+                }else{
+                    
+                    cout << "NULL\n\n"; 
+                    
+                }
+                
+            }
+            
             
     };
-    
+
     //Implementación de la clase listNode
-    
+
     //Constructor de un nodo vacío
     listNode::listNode(){
         
@@ -205,7 +204,7 @@
         next = 0; 		//0 es un puntero NULL
         
     }
-    
+
     //Constructor de un nodo pasando el objeto a almacenar
     listNode::listNode(int objeto){
         
@@ -213,28 +212,22 @@
         next = 0; 			//0 es un puntero NULL
         
     }
-    
-    //Constructor de un nodo pasando el puntero al siguiente nodo
-    listNode::listNode(listNode* siguiente){
-        
-        object= 0;			//Valor por defecto del objeto almacenado en el nodo
-        next = siguiente; 
-        
-    }
-    
-    //Constructor de un nodo completo, paasando el objeto y el puntero al siguiente
-    listNode::listNode(int objeto, listNode* siguiente){
+
+
+    //Constructor de un nodo completo, paasando el objeto y los punteros al anterios y siguiente
+    listNode::listNode(int objeto, listNode* siguiente, listNode* anterior){
         
         object = objeto; 
         next = siguiente; 
+        previous = anterior; 
         
     }
-        
+
             </code>
 
         </pre>
 
-        <h1>CÓDIGO DE LA LISTA SIMPLEMENTE ENLAZADA</h1>
+        <h1>CÓDIGO DE LA LISTA DOBLEMENTE ENLAZADA</h1>
         <br>
 
         <pre>
@@ -243,15 +236,16 @@
 
     //--------------------list----------------------//
 
-    class List{
-        
+    class DoubleLinkedList{
+                    
         private: 
             //Atrubutos de la clase
             int size; 
             listNode* head; 	//Referencia a un nodo que será la cabeza
             listNode* tail; 	//Referencia a un nodo que será la cola
-            
+        
         public: 
+        
             //Constructor de la lista vacía
             List(){
                 
@@ -283,7 +277,16 @@
             
             void listToString(){
                 
+                //Se llama al método del nodo para imprimir en dirección derecha
                 head -> toString(); 
+                
+            }
+            
+            //Método para imprimir la lista en el sentido contrario
+            void listToStringINV(){
+                
+                //Se llama al método del nodo para imprimir en dirección izquierda
+                tail -> toStringINV(); 
                 
             }
             
@@ -301,20 +304,6 @@
                 
             }
             
-            //Método para obtener el objeto almacenado en la cabeza
-            int getHead(){
-                
-                return head -> getObject(); 
-                
-            }
-            
-            //Mëtodo para obtener el objeto almacenado en la cola
-            int getTail(){
-                
-                return tail -> getObject(); 
-                
-            }
-            
             //Mëtodo para insertar un objeto por la cola
             void insertTail(int objeto){
                 
@@ -328,31 +317,40 @@
                 }else{
                     
                     //Si la lista no está vacía 
-                    tail -> enlazarSiguiente(new listNode(objeto));
-                    tail = tail -> getNextTo();  
+                    
+                    //Se crea el nuevo nodo 
+                    listNode* temp = new listNode(objeto); 
+                    
+                    temp -> enlazarAnterior(tail); 	//El nodo anterior al nuevo nodo será la anterior cola
+                    tail -> enlazarSiguiente(temp);	//La anterior cola se enlaza al nuevo nodo
+                    tail = tail -> getNextTo();  	//La nueva cola será el nodo siguiente a la anterior cola
                     size++; 
                     
                 }
                 
             }
             
-            //Método para insertar un objeto por la cabeza
-            void insertHead(int objeto){
+            //Método para añadir un elemento a la lista
+            void add(int objeto){
                 
-                if(isEmpty() == true){
-                    
-                    //Si la lista está vacía, la cabeza y la cola serán el nuevo nodo
-                    head = new listNode(objeto); 
-                    tail = head; 
-                    size++; 
-                    
-                }else{
-                    
-                    listNode* tempHead = head; 
-                    head = new listNode(objeto);
-                    head -> enlazarSiguiente(tempHead);
-                    
-                }
+                //Se llama el método insertTail
+                insertTail(objeto); 
+                
+            }
+            
+            //Método par obtener el tamaño de la lista
+            int getSize(){
+                
+                return size; 
+                
+            }
+            
+            //Método para anular la lista
+            void clear(){
+                
+                head = NULL; 
+                tail = NULL; 
+                size = 0; 
                 
             }
             
@@ -394,38 +392,15 @@
                         
                     }else{
                         
-                        before -> enlazarSiguiente(current -> getNextTo()); 
+                        before -> enlazarSiguiente(current -> getNextTo()); 	//El anterior nodo se enlaza al siguiente nodo
+                        (current -> getNextTo()) -> enlazarAnterior(before); 	//El siguiente nodo se enlaza an anterior del nodo encontrado
                         
                     }
                     
-                    delete current; 
+                    delete current; 	//Se elimina el nodo encontrado 
                     
                 }
                 
-                
-            }
-            
-            //Método para añadir un elemento a la lista
-            void add(int objeto){
-                
-                //Se llama el método insertTail
-                insertTail(objeto); 
-                
-            }
-            
-            //Método par obtener el tamaño de la lista
-            int getSize(){
-                
-                return size; 
-                
-            }
-            
-            //Método para anular la lista
-            void clear(){
-                
-                head = NULL; 
-                tail = NULL; 
-                size = 0; 
                 
             }
             
@@ -448,8 +423,10 @@
                 }
                 
             }
-                    
-    };
+            
+        
+    }; 
+
 
             </code>
 
