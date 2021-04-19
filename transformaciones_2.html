@@ -5,7 +5,7 @@
         <style>
         </style>
         
-        <meta charset="utf-8">
+        <meta charset="UTF-8">
         <link rel="stylesheet" href="./css/styles.css ", type="text/css">
     
         <link rel="stylesheet" href="/implementaciones/JAVA/highlight/styles/dracula.css">
@@ -213,7 +213,7 @@
                             nodes.add(node); 
 
                             //Agregar el enlace entre los nodos
-                            edges.add({from:1, to:contadorID});
+                            edges.add({from:1, to:contadorID, label:"attribute"});
 
                             contadorID = contadorID+1; 
 
@@ -240,7 +240,7 @@
                                     nodes.add(node);
                                     
                                     //Crear los enlaces
-                                    edges.add({from:1, to:contadorID});
+                                    edges.add({from:1, to:contadorID, label:"method"}); 
 
                                     var idMetodo = contadorID; 
                                     
@@ -251,13 +251,13 @@
                                     var node2 = {id:contadorID, label:palabras[1], color:{background:"#3CE7CA", border: "#000000"}};
                                     nodes.add(node2);
 
-                                    edges.add({from:idMetodo, to:contadorID}); 
+                                    edges.add({from:idMetodo, to:contadorID, label:"return"}); 
                                     contadorID = contadorID+1; 
 
                                     var node3 = {id:contadorID, label:"", color:{background:"#6BE73C", border: "#000000"}}
                                     nodes.add(node3); 
                                     
-                                    edges.add({from:idMetodo, to:contadorID}); 
+                                    edges.add({from:idMetodo, to:contadorID, label:"parameter"}); 
                                     contadorID = contadorID+1; 
 
                                     //Refrescar el dibujo
@@ -322,7 +322,7 @@
                                     nodes.add(node);
                                     
                                     //Crear los enlaces
-                                    edges.add({from:1, to:contadorID});
+                                    edges.add({from:1, to:contadorID, label:"method"}); 
                                     
                                     var idMetodo = contadorID; 
                                     contadorID = contadorID +1; 
@@ -331,13 +331,13 @@
                                     var node2 = {id:contadorID, label:palabras[1], color:{background:"#3CE7CA", border: "#000000"}}; 
                                     nodes.add(node2);
                                     
-                                    edges.add({from:idMetodo, to:contadorID});
+                                    edges.add({from:idMetodo, to:contadorID, label:"return"}); 
                                     contadorID = contadorID +1; 
 
                                     var node3 = {id:contadorID, label:parametros, color:{background:"#6BE73C", border: "#000000"}};
                                     nodes.add(node3);
                                     
-                                    edges.add({from:idMetodo, to:contadorID});
+                                    edges.add({from:idMetodo, to:contadorID, label:"parameter"}); 
                                     contadorID = contadorID +1; 
 
                                     //Refrescar el dibujo

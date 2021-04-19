@@ -4,7 +4,7 @@
     <style>
     </style>
     
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
     <link rel="stylesheet" href="./css/styles.css ", type="text/css">
 
     <link rel="stylesheet" href="implementaciones/JAVA/highlight/styles/dracula.css">
@@ -209,7 +209,7 @@
           nodes.add(node);
 
           //Agregar el enlace entre los nodos
-          edges.add({from:1, to:contadorID});
+          edges.add({from:1, to:contadorID, label:"attribute"});
 
           contadorID = contadorID +1; 
 
@@ -239,7 +239,7 @@
           value = document.getElementById("txt_MetodoName").value;
           
           //Agregar el enlace entre los nodos
-          edges.add({from:1, to:contadorID}); 
+          edges.add({from:1, to:contadorID, label:"method"}); 
 
           //Se almacena temporalmente el ID del metodo para agregarle los parámetros y el retorno
           var metodoID = contadorID; 
@@ -257,7 +257,7 @@
           nodes.add(nodeParametro); 
 
           //Se crean los enlaces desde el método hasta el nuevo nodo
-          edges.add({from:metodoID, to:contadorID}); 
+          edges.add({from:metodoID, to:contadorID, label:"parameter"}); 
 
           contadorID = contadorID+1; 
 
@@ -269,7 +269,7 @@
           nodes.add(nodeRetorno); 
 
           //Se crean los enlaces desde el método hasta el nuevo nodo
-          edges.add({from:metodoID, to:contadorID}); 
+          edges.add({from:metodoID, to:contadorID, label:"return"}); 
 
           contadorID = contadorID+1; 
 
