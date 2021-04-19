@@ -5,7 +5,7 @@
         <style>
         </style>
         
-        <meta charset="UTF-8">
+        <meta charset="utf-8">
         <link rel="stylesheet" href="./css/styles.css ", type="text/css">
     
         <link rel="stylesheet" href="/implementaciones/JAVA/highlight/styles/dracula.css">
@@ -181,8 +181,57 @@
                     
                     var palabras = lineaLimpia.split(" ")
 
-                    // ----- Identificar si se trata de la clase -----
-                    if(palabras[0] == "public" && palabras[1] == "class"){
+                    // ----- Identificar si se trata del package -----
+
+                    if(palabras[0] == "package"){
+
+                        var pack = ""; 
+                        pack = palabras[1]; 
+                        pack = pack.replace(";", ""); 
+
+                        //Se agrega el package al gráfo
+
+                        //Se crea el nuevo nodo
+                        var node = {id:contadorID, shape:"square", label:pack, color:{background:"#ffffff", border:"#000000"}}; 
+                        nodes.add(node); 
+
+                        //Se crea la conexión
+                        edges.add({from:1, to:contadorID, label:"PACKAGE"}); 
+
+                        contadorID = contadorID+1; 
+
+                        //Refrescar el dibujo
+                        var network = new vis.Network(container, data, options);
+                        
+                    }else{
+
+                        // ----- Identificar si se trata de un import ----
+
+                        if(palabras[0] == "import"){
+
+                        var imp = ""; 
+                        imp = palabras[1]; 
+                        imp = imp.replace(";", ""); 
+
+
+                        //Se agrega el import al grafo
+
+                        //Se crea el nuevo nodo
+                        var node = {id:contadorID, shape:"square",label:imp, color:{background:"#F0B0FF", border:"#000000"}}; 
+                        nodes.add(node); 
+
+                        //Se crea la conexión
+                        edges.add({from:1, to:contadorID, label:"import",}); 
+
+                        contadorID = contadorID+1; 
+
+                        //Refrescar el dibujo
+                        var network = new vis.Network(container, data, options);
+
+                        }else{
+
+                        // ----- Identificar si se trata de la clase -----
+                        if(palabras[0] == "public" && palabras[1] == "class"){
 
                         clase = palabras[2]; 
 
@@ -191,11 +240,11 @@
                         //Se crea el nuevo nodo
                         var node = {id:1, label: clase, color: {background:"#E74C3C", border: "#000000"}}; 
                         nodes.add(node); 
-                        
+
                         //Refrescar el dibujo
                         var network = new vis.Network(container, data, options);
 
-                    }else{
+                        }else{
 
                         // ----- Identificar si se trata de un atributo de la clase -----
 
@@ -346,6 +395,10 @@
                                 }
 
                             }
+
+                        }
+
+                        }
 
                         }
 
