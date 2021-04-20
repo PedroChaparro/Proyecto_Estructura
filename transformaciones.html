@@ -100,6 +100,18 @@
         <button id="btn_ClassName" onclick="insertPrincipal()">AGREGAR CLASE!</button>
         <br> <br>
 
+        <!-- GENERACIÓN DEL NODO QUE REPRESENTA EL PAQUETE (SI LO HAY) -->
+        <p>INGRESE EL PAQUETE AL QUE PERTENECE LA CLASE: </p>
+        <input disabled="true" type="text" id="txt_Package" placeholder="NOMBRE PAQUETE">
+        <button disabled="true" id="btn_Package" onclick="insertPackage()">AGREGAR PAQUETE!</button>
+        <br><br>
+
+        <!-- GENERACIÓN DE LOS NODOS QUE REPRESENTAN LOS IMPORT -->
+        <p>INGRESE LAS IMPORTACIONES DE LA CLASE: </p>
+        <input type="text" disabled="true" id="txt_Import" placeholder="NOMBRE IMPORT">
+        <button disabled="true" id="btn_Import" onclick="insertImport()">AGREGAR IMPORT!</button>
+        <br><br>
+
         <!-- GENERACIÓN DE LOS NODOS ATRIBUTOS -->
         <p>INGRESO DE ATRIBUTOS: </p>
         <input type="text" id="txt_AttributeName" placeholder="tipo NombreAributo" disabled="true">
@@ -145,6 +157,8 @@
         var stringFinal = "";     
         var codigoMetodos = "<br>    //MÉTODOS: <br>"; 
         var codigoAtributos = "<br><br>     //ATRIBUTOS: <br>"; 
+        var codigoPaquete = ""; 
+        var codigoImports = ""; 
 
         // create an array with nodes
         var nodes = new vis.DataSet([
@@ -195,7 +209,72 @@
             document.getElementById("txt_Return").disabled = false; 
             document.getElementById("txt_Parametros").disabled = false; 
 
+            //Habilitar el botón y la caja del paquete
+            document.getElementById("txt_Package").disabled = false; 
+            document.getElementById("btn_Package").disabled = false; 
+
+            //Habilitar el botón y la caja de los imports
+            document.getElementById("txt_Import").disabled = false; 
+            document.getElementById("btn_Import").disabled = false; 
+
             stringFinal = stringFinal + ("public class " + value + " {<br>"); 
+
+        }
+
+        //Función para insertar el nodo del paquete
+        function insertPackage(){
+
+          var packageName = ""; 
+          packageName = document.getElementById("txt_Package").value; 
+          packageName = packageName.replace(";", "");   //Eliminar el punto y coma final
+
+          //Se crea el nuevo nodo
+          var node = {id:contadorID, shape:"square", label:packageName, color:{background:"#ffffff", border:"#000000"}}; 
+          nodes.add(node); 
+
+          //Se crea la conexión
+          edges.add({from:1, to:contadorID, label:"PACKAGE"}); 
+
+          contadorID = contadorID+1; 
+
+          //Refrescar el dibujo
+          var network = new vis.Network(container, data, options);
+
+          //Deshabilitar el botón del paquete
+          document.getElementById("btn_Package").disabled = true; 
+
+          //Se agrega a la cadena de salida
+          codigoPaquete = "package " + packageName + ";<br><br>"  
+
+          //Se limpia el txt 
+          document.getElementById("txt_Package").value = ""; 
+
+        }
+
+        //Función para insertar los nodos de los import
+        function insertImport(){
+
+          var importName = ""; 
+          importName = document.getElementById("txt_Import").value;
+          importName = importName.replace(";", "");   //Eliminar el punto y coma en caso de que el usuario lo ponga
+          
+          //Se crea el nuevo nodo
+          var node = {id:contadorID, shape:"square",label:importName, color:{background:"#F0B0FF", border:"#000000"}}; 
+          nodes.add(node); 
+
+          //Se crea la conexión
+          edges.add({from:1, to:contadorID, label:"import",}); 
+
+          contadorID = contadorID+1; 
+
+          //Refrescar el dibujo
+          var network = new vis.Network(container, data, options);
+
+          //Se agrega a la cadena de salida
+          codigoImports = codigoImports + "<br>" + "import " + importName; 
+
+          //Se limpia el txt 
+          document.getElementById("txt_Import").value = ""; 
 
         }
 
@@ -320,7 +399,7 @@
 
         function printCode(){
 
-          stringFinal = stringFinal + codigoAtributos +  "<br>" +codigoMetodos; 
+          stringFinal = codigoPaquete + codigoImports + "<br><br>" + stringFinal + codigoAtributos +  "<br>" +codigoMetodos; 
           document.getElementById("resultados").innerHTML = stringFinal + "<br><br>}"; 
           
         }
