@@ -52,6 +52,49 @@
                 margin-top: 20px;
 
             }
+
+            #contenedorCarga{
+
+                background-color: black;
+                height: 100%;
+                width: 100%;
+                position: fixed; 
+                -webkit-transform: all 1s ease;
+                -o-transform: all 1s ease;
+                z-index: 10000;
+
+                visibility: hidden;
+
+            }
+
+            #Carga{
+
+                border: 15px solid #ccc;
+                border-top-color: #00fff2;
+                border-top-style: groove;
+                height: 100;
+                width: 100;
+                border-radius: 100%;
+                
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                margin: auto;
+
+                -webkit-animation: girar 1.5s linear infinite;
+                    -o-animation: girar 1.5s linear infinite;
+                    animation: girar 1.5s linear infinite;
+
+            }
+
+            @keyframes girar{
+
+                from { transform: rotate(0deg);}
+                to { transform: rotate(360deg);}
+
+            }
     
         </style>
 
@@ -59,6 +102,16 @@
 
     <body>
         
+        <!-- PANTALLA DE CARGA -->
+        <div id="contenedorCarga">
+
+            <div id="Carga">
+
+
+            </div>
+
+        </div>
+
         <!-- PARTÍCULAS -->
         <div id="particles-js"></div>
 
@@ -144,6 +197,45 @@
 
         function generateGraph(){
 
+            // -------------------------------------------------------------------//
+            // -------------------------------------------------------------------//
+            // AL HACER CLICK AL BOTÓN, SE COLOCA UNA PANTALLA DE CARGA
+            // -------------------------------------------------------------------//
+            // -------------------------------------------------------------------//
+
+
+            //Se introduce la pantalla de carga
+            document.getElementById("contenedorCarga").style.visibility = "visible"; 
+
+            //Se deshabilita temporalmente la pantalla normal
+            document.getElementById("globalContainer").style.visibility = "hidden"; 
+            document.getElementById("contenido-superior").style.visibility = "hidden"; 
+
+            function enableContent(){
+
+                document.getElementById("globalContainer").style.visibility = "visible"; 
+                document.getElementById("contenido-superior").style.visibility = "visible"; 
+
+            }
+
+            function disableScreen(){
+
+                //Se quita la pantalla de carga
+                document.getElementById("contenedorCarga").style.visibility = "hidden"; 
+
+            }
+
+            //Se cuenta 2 segundos para desaparecer la pantalla de carga
+            setTimeout(disableScreen,3000);
+            //Se cuenta 1.9 segundos para desaparecer la pantalla de carga
+            setTimeout(enableContent,3000);
+
+            // -------------------------------------------------------------------//
+            // -------------------------------------------------------------------//
+            // ANÁLISIS DEL CÓDIGO
+            // -------------------------------------------------------------------//
+            // -------------------------------------------------------------------//
+
             //Código ingresado por el usuario
             var codeInput = document.getElementById("txt_CodeInput").value; 
 
@@ -175,78 +267,137 @@
 
                 if(element != " "){
                     
+                    //Se usa el método trim para remover las tabulaciones
                     var lineaLimpia = element.trim()
 
                     //Separar la linea limpia por "palabras"
                     
                     var palabras = lineaLimpia.split(" ")
 
-                    // ----- Identificar si se trata del package -----
+                    // ----- Identificar si se trata de un método -----
 
-                    if(palabras[0] == "package"){
+                    var temp = palabras[2]; 
+                    var metodo = ""; 
 
-                        var pack = ""; 
-                        pack = palabras[1]; 
-                        pack = pack.replace(";", ""); 
+                    if(palabras[0] == "public" && temp.includes("(")){
 
-                        //Se agrega el package al gráfo
+                        // ----- Identificar si se trata de un método sin parámetros
 
-                        //Se crea el nuevo nodo
-                        var node = {id:contadorID, shape:"square", label:pack, color:{background:"#ffffff", border:"#000000"}}; 
-                        nodes.add(node); 
+                        if(palabras.length == 4){
 
-                        //Se crea la conexión
-                        edges.add({from:1, to:contadorID, label:"PACKAGE"}); 
+                            metodo = palabras[2]; 
 
-                        contadorID = contadorID+1; 
+                            //Crear el nodo en el grafo
+                            var node = {id:contadorID, label:metodo, color:{background:"#E7E43C", border: "#000000"}};
+                            nodes.add(node);
+                            
+                            //Crear los enlaces
+                            edges.add({from:1, to:contadorID, label:"method"}); 
 
-                        //Refrescar el dibujo
-                        var network = new vis.Network(container, data, options);
-                        
+                            var idMetodo = contadorID; 
+                            
+                            contadorID = contadorID+1; 
+
+                            //Crear los nodos de retorno y parámetros (vacío)
+
+                            var node2 = {id:contadorID, label:palabras[1], color:{background:"#3CE7CA", border: "#000000"}};
+                            nodes.add(node2);
+
+                            edges.add({from:idMetodo, to:contadorID, label:"return"}); 
+                            contadorID = contadorID+1; 
+
+                            var node3 = {id:contadorID, label:"", color:{background:"#6BE73C", border: "#000000"}}
+                            nodes.add(node3); 
+                            
+                            edges.add({from:idMetodo, to:contadorID, label:"parameter"}); 
+                            contadorID = contadorID+1; 
+
+                            
+                            
+
+                        }else{
+
+                            //En caso de que sea un métoco CON PARÁMETROS
+                            metodo = ""; 
+
+                            for(var i=0; i<palabras[2].length; i++){
+
+                                if((palabras[2])[i] != "("){
+
+                                    metodo = metodo + (palabras[2])[i]; 
+
+                                }else{
+
+                                    break; 
+
+                                }
+
+                            }
+
+                            //Obtener los atributos del método
+
+                            //Encontrar dónde inicia el paréntesis de apertura
+                            var posicion = 0; 
+
+                            for(var i=0; i<lineaLimpia.length; i++){
+
+                                if(lineaLimpia[i] == "("){
+
+                                    posicion = i+1; 
+                                    break; 
+
+                                }
+
+                            }
+
+                            //Identificar los parámetros, desde el paréntesis de apertura hasta el de cierre
+
+                            var parametros = ""; 
+
+                            for(var i=posicion; i<lineaLimpia.length; i++){
+
+                                if(lineaLimpia[i] != ")"){
+
+                                    parametros = parametros + lineaLimpia[i]; 
+
+                                }else{
+
+                                    break; 
+
+                                }
+
+                            }
+
+                            //Añadir el método, con sus parámetros y retorno al grafo
+                            var node = {id:contadorID, label:metodo, color:{background:"#E7E43C", border: "#000000"}}; 
+                            nodes.add(node);
+                            
+                            //Crear los enlaces
+                            edges.add({from:1, to:contadorID, label:"method"}); 
+                            
+                            var idMetodo = contadorID; 
+                            contadorID = contadorID +1; 
+
+                            //Crear los nodos del retorno y los parámetros
+                            var node2 = {id:contadorID, label:palabras[1], color:{background:"#3CE7CA", border: "#000000"}}; 
+                            nodes.add(node2);
+                            
+                            edges.add({from:idMetodo, to:contadorID, label:"return"}); 
+                            contadorID = contadorID +1; 
+
+                            var node3 = {id:contadorID, label:parametros, color:{background:"#6BE73C", border: "#000000"}};
+                            nodes.add(node3);
+                            
+                            edges.add({from:idMetodo, to:contadorID, label:"parameter"}); 
+                            contadorID = contadorID +1; 
+
+                            
+
+                        }
+
                     }else{
 
-                        // ----- Identificar si se trata de un import ----
-
-                        if(palabras[0] == "import"){
-
-                        var imp = ""; 
-                        imp = palabras[1]; 
-                        imp = imp.replace(";", ""); 
-
-
-                        //Se agrega el import al grafo
-
-                        //Se crea el nuevo nodo
-                        var node = {id:contadorID, shape:"square",label:imp, color:{background:"#F0B0FF", border:"#000000"}}; 
-                        nodes.add(node); 
-
-                        //Se crea la conexión
-                        edges.add({from:1, to:contadorID, label:"import",}); 
-
-                        contadorID = contadorID+1; 
-
-                        //Refrescar el dibujo
-                        var network = new vis.Network(container, data, options);
-
-                        }else{
-
-                        // ----- Identificar si se trata de la clase -----
-                        if(palabras[0] == "public" && palabras[1] == "class"){
-
-                        clase = palabras[2]; 
-
-                        //Se agrega la clase al grafo
-
-                        //Se crea el nuevo nodo
-                        var node = {id:1, label: clase, color: {background:"#E74C3C", border: "#000000"}}; 
-                        nodes.add(node); 
-
-                        //Refrescar el dibujo
-                        var network = new vis.Network(container, data, options);
-
-                        }else{
-
-                        // ----- Identificar si se trata de un atributo de la clase -----
+                        // ----- Identificar si se trata de un atributo -----
 
                         var temp = palabras[2]; 
                         var atributo = ""; 
@@ -266,147 +417,89 @@
 
                             contadorID = contadorID+1; 
 
-                            //Refrescar el dibujo
-                            var network = new vis.Network(container, data, options);
+                            
 
                         }else{
 
-                            // ----- Identificar si se trata de un método de la clase ----
+                            // ----- Verificar si se trata de un import -----
 
-                            var temp = palabras[2]; 
-                            var metodo = ""; 
+                            if(palabras[0] == "import"){
 
-                            if(palabras[0] == "public" && temp.includes("(")){
+                                var imp = ""; 
+                                imp = palabras[1]; 
+                                imp = imp.replace(";", ""); 
 
-                                // ----- Identificar si se trata de un método sin parámetros
 
-                                if(palabras.length == 4){
+                                //Se agrega el import al grafo
 
-                                    metodo = palabras[2]; 
+                                //Se crea el nuevo nodo
+                                var node = {id:contadorID, shape:"square",label:imp, color:{background:"#F0B0FF", border:"#000000"}}; 
+                                nodes.add(node); 
 
-                                    //Crear el nodo en el grafo
-                                    var node = {id:contadorID, label:metodo, color:{background:"#E7E43C", border: "#000000"}};
-                                    nodes.add(node);
-                                    
-                                    //Crear los enlaces
-                                    edges.add({from:1, to:contadorID, label:"method"}); 
+                                //Se crea la conexión
+                                edges.add({from:1, to:contadorID, label:"import",}); 
 
-                                    var idMetodo = contadorID; 
-                                    
+                                contadorID = contadorID+1; 
+
+
+
+                            }else{
+
+                                // ----- Verificar si se trata del paquete de la clase -----
+                                if(palabras[0] == "package"){
+
+                                    var pack = ""; 
+                                    pack = palabras[1]; 
+                                    pack = pack.replace(";", ""); 
+
+                                    //Se agrega el package al gráfo
+
+                                    //Se crea el nuevo nodo
+                                    var node = {id:contadorID, shape:"square", label:pack, color:{background:"#ffffff", border:"#000000"}}; 
+                                    nodes.add(node); 
+
+                                    //Se crea la conexión
+                                    edges.add({from:1, to:contadorID, label:"PACKAGE"}); 
+
                                     contadorID = contadorID+1; 
 
-                                    //Crear los nodos de retorno y parámetros (vacío)
 
-                                    var node2 = {id:contadorID, label:palabras[1], color:{background:"#3CE7CA", border: "#000000"}};
-                                    nodes.add(node2);
-
-                                    edges.add({from:idMetodo, to:contadorID, label:"return"}); 
-                                    contadorID = contadorID+1; 
-
-                                    var node3 = {id:contadorID, label:"", color:{background:"#6BE73C", border: "#000000"}}
-                                    nodes.add(node3); 
-                                    
-                                    edges.add({from:idMetodo, to:contadorID, label:"parameter"}); 
-                                    contadorID = contadorID+1; 
-
-                                    //Refrescar el dibujo
-                                    var network = new vis.Network(container, data, options);
-                                    
 
                                 }else{
 
-                                    //En caso de que sea un métoco CON PARÁMETROS
-                                    metodo = ""; 
+                                    // ----- Verificar si se trata de la clase -----
+                                    // ----- Identificar si se trata de la clase -----
+                                    if(palabras[0] == "public" && palabras[1] == "class"){
 
-                                    for(var i=0; i<palabras[2].length; i++){
+                                        clase = palabras[2]; 
 
-                                        if((palabras[2])[i] != "("){
+                                        //Se agrega la clase al grafo
 
-                                            metodo = metodo + (palabras[2])[i]; 
+                                        //Se crea el nuevo nodo
+                                        var node = {id:1, label: clase, color: {background:"#E74C3C", border: "#000000"}}; 
+                                        nodes.add(node); 
 
-                                        }else{
 
-                                            break; 
-
-                                        }
-
-                                    }
-
-                                    //Obtener los atributos del método
-
-                                    //Encontrar dónde inicia el paréntesis de apertura
-                                    var posicion = 0; 
-
-                                    for(var i=0; i<lineaLimpia.length; i++){
-
-                                        if(lineaLimpia[i] == "("){
-
-                                            posicion = i+1; 
-                                            break; 
-
-                                        }
 
                                     }
-
-                                    //Identificar los parámetros, desde el paréntesis de apertura hasta el de cierre
-
-                                    var parametros = ""; 
-
-                                    for(var i=posicion; i<lineaLimpia.length; i++){
-
-                                        if(lineaLimpia[i] != ")"){
-
-                                            parametros = parametros + lineaLimpia[i]; 
-
-                                        }else{
-
-                                            break; 
-
-                                        }
-
-                                    }
-
-                                    //Añadir el método, con sus parámetros y retorno al grafo
-                                    var node = {id:contadorID, label:metodo, color:{background:"#E7E43C", border: "#000000"}}; 
-                                    nodes.add(node);
                                     
-                                    //Crear los enlaces
-                                    edges.add({from:1, to:contadorID, label:"method"}); 
-                                    
-                                    var idMetodo = contadorID; 
-                                    contadorID = contadorID +1; 
 
-                                    //Crear los nodos del retorno y los parámetros
-                                    var node2 = {id:contadorID, label:palabras[1], color:{background:"#3CE7CA", border: "#000000"}}; 
-                                    nodes.add(node2);
-                                    
-                                    edges.add({from:idMetodo, to:contadorID, label:"return"}); 
-                                    contadorID = contadorID +1; 
-
-                                    var node3 = {id:contadorID, label:parametros, color:{background:"#6BE73C", border: "#000000"}};
-                                    nodes.add(node3);
-                                    
-                                    edges.add({from:idMetodo, to:contadorID, label:"parameter"}); 
-                                    contadorID = contadorID +1; 
-
-                                    //Refrescar el dibujo
-                                    var network = new vis.Network(container, data, options);
-
-                                }
+                                }//@@@@@@
 
                             }
-
+                            
                         }
-
-                        }
-
-                        }
+                        
 
                     }
+                    
 
                 }
 
             });
+
+            //Refrescar el dibujo
+            var network = new vis.Network(container, data, options);
 
         }
 
