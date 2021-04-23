@@ -42,15 +42,10 @@
     
             }
 
+
             #contenido-superior{
                 height: 70px;
                 margin-top: 0px;
-            }
-
-            #letras{
-
-                margin-top: 20px;
-
             }
 
             #contenedorCarga{
@@ -76,7 +71,7 @@
                 height: 350;
                 width: 350;
                 border-radius: 100%;
-
+                
                 position: absolute;
                 top: 0;
                 left: 0;
@@ -190,7 +185,21 @@
         nodes: nodes,
         edges: edges,
         };
-        var options = {};
+        var options = {
+            nodes: {
+                
+                shape: "dot",   
+                borderWidth: 3,
+            
+            },
+
+            edges: {
+
+                width: 2, 
+                shadow: true,
+
+            },
+        };
         var network = new vis.Network(container, data, options);
 
         //Contador para asignar ID
@@ -275,7 +284,9 @@
                     
                     var palabras = lineaLimpia.split(" ")
 
+                    // -----------------------------------------------
                     // ----- Identificar si se trata de un método -----
+                    // -----------------------------------------------
 
                     var temp = palabras[2]; 
                     var metodo = ""; 
@@ -289,11 +300,11 @@
                             metodo = palabras[2]; 
 
                             //Crear el nodo en el grafo
-                            var node = {id:contadorID, label:metodo, color:{background:"#E7E43C", border: "#000000"}};
+                            var node = {id:contadorID, label:metodo, color:{background:"#FFFD5E", border: "#C4C200"}};
                             nodes.add(node);
                             
                             //Crear los enlaces
-                            edges.add({from:1, to:contadorID, label:"method"}); 
+                            edges.add({from:1, to:contadorID, label:"method", color:{color:"#000000"}, length: 300}); 
 
                             var idMetodo = contadorID; 
                             
@@ -301,16 +312,16 @@
 
                             //Crear los nodos de retorno y parámetros (vacío)
 
-                            var node2 = {id:contadorID, label:palabras[1], color:{background:"#3CE7CA", border: "#000000"}};
+                            var node2 = {id:contadorID, label:palabras[1], color:{background:"#65F0D9", border: "#00A488"}};
                             nodes.add(node2);
 
-                            edges.add({from:idMetodo, to:contadorID, label:"return"}); 
+                            edges.add({from:idMetodo, to:contadorID, label:"return", color:{color:"#000000"}}); 
                             contadorID = contadorID+1; 
 
-                            var node3 = {id:contadorID, label:"", color:{background:"#6BE73C", border: "#000000"}}
+                            var node3 = {id:contadorID, label:"", color:{background:"#84F15B", border: "#01A306"}}
                             nodes.add(node3); 
                             
-                            edges.add({from:idMetodo, to:contadorID, label:"parameter"}); 
+                            edges.add({from:idMetodo, to:contadorID, label:"parameter", color:{color:"#000000"}}); 
                             contadorID = contadorID+1; 
 
                             
@@ -370,26 +381,26 @@
                             }
 
                             //Añadir el método, con sus parámetros y retorno al grafo
-                            var node = {id:contadorID, label:metodo, color:{background:"#E7E43C", border: "#000000"}}; 
+                            var node = {id:contadorID, label:metodo, color:{background:"#FFFD5E", border: "#C4C200"}}; 
                             nodes.add(node);
                             
                             //Crear los enlaces
-                            edges.add({from:1, to:contadorID, label:"method"}); 
+                            edges.add({from:1, to:contadorID, label:"method", color:{color:"#000000"}, length: 300}); 
                             
                             var idMetodo = contadorID; 
                             contadorID = contadorID +1; 
 
                             //Crear los nodos del retorno y los parámetros
-                            var node2 = {id:contadorID, label:palabras[1], color:{background:"#3CE7CA", border: "#000000"}}; 
+                            var node2 = {id:contadorID, label:palabras[1], color:{background:"#65F0D9", border: "#00A488"}}; 
                             nodes.add(node2);
                             
-                            edges.add({from:idMetodo, to:contadorID, label:"return"}); 
+                            edges.add({from:idMetodo, to:contadorID, label:"return", color:{color:"#000000"}}); 
                             contadorID = contadorID +1; 
 
-                            var node3 = {id:contadorID, label:parametros, color:{background:"#6BE73C", border: "#000000"}};
+                            var node3 = {id:contadorID, label:parametros, color:{background:"#84F15B", border: "#01A306"}};
                             nodes.add(node3);
                             
-                            edges.add({from:idMetodo, to:contadorID, label:"parameter"}); 
+                            edges.add({from:idMetodo, to:contadorID, label:"parameter", color:{color:"#000000"}}); 
                             contadorID = contadorID +1; 
 
                             
@@ -410,11 +421,11 @@
                             atributo = palabras[1] + " " + temp; 
 
                             //Agregar el nuevo nodo al grafo
-                            var node = {id:contadorID, label: atributo, color: {background:"#E7A93C", border: "#000000"}}; 
+                            var node = {id:contadorID, label: atributo, color: {background:"#FFAD00", border: "#D18D00"}}; 
                             nodes.add(node); 
 
                             //Agregar el enlace entre los nodos
-                            edges.add({from:1, to:contadorID, label:"attribute"});
+                            edges.add({from:1, to:contadorID, label:"attribute", color:{color:"#000000"}});
 
                             contadorID = contadorID+1; 
 
@@ -434,11 +445,11 @@
                                 //Se agrega el import al grafo
 
                                 //Se crea el nuevo nodo
-                                var node = {id:contadorID, shape:"square",label:imp, color:{background:"#F0B0FF", border:"#000000"}}; 
+                                var node = {id:contadorID, shape:"square",label:imp, color:{background:"#EE73FF", border:"#AD00C4"}}; 
                                 nodes.add(node); 
 
                                 //Se crea la conexión
-                                edges.add({from:1, to:contadorID, label:"import",}); 
+                                edges.add({from:1, to:contadorID, label:"import",color:{color:"#000000"}}); 
 
                                 contadorID = contadorID+1; 
 
@@ -456,11 +467,11 @@
                                     //Se agrega el package al gráfo
 
                                     //Se crea el nuevo nodo
-                                    var node = {id:contadorID, shape:"square", label:pack, color:{background:"#ffffff", border:"#000000"}}; 
+                                    var node = {id:contadorID, shape:"square", label:pack, color:{background:"#FFFFFF", border:"#C1C1C1"}}; 
                                     nodes.add(node); 
 
                                     //Se crea la conexión
-                                    edges.add({from:1, to:contadorID, label:"PACKAGE"}); 
+                                    edges.add({from:1, to:contadorID, label:"PACKAGE", color:{color:"#000000"}}); 
 
                                     contadorID = contadorID+1; 
 
@@ -477,7 +488,7 @@
                                         //Se agrega la clase al grafo
 
                                         //Se crea el nuevo nodo
-                                        var node = {id:1, label: clase, color: {background:"#E74C3C", border: "#000000"}}; 
+                                        var node = {id:1, label: clase, color: {background:"#FF4949", border: "#B10000"}}; 
                                         nodes.add(node); 
 
 

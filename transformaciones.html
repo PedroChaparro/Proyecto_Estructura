@@ -176,7 +176,20 @@
         nodes: nodes,
         edges: edges,
         };
-        var options = {};
+        var options = {
+          nodes: {
+            shape: "dot",   
+            borderWidth: 3,
+            
+          },
+
+          edges: {
+
+            width: 2, 
+            shadow: true,
+
+          },
+        };
         var network = new vis.Network(container, data, options);
 
         //Variable para ir aumentando el id de los nodos Atributos
@@ -188,7 +201,7 @@
 
             var value = document.getElementById("txt_ClassName").value; 
             //Se crea el nuevo nodo
-            var node = {id:1, label: value, color: {background:"#E74C3C", border: "#000000"}}; 
+            var node = {id:1, label: value, color: {background:"#FF4949", border: "#B10000"}}; 
             nodes.add(node); 
             
             //Refrescar el dibujo
@@ -229,11 +242,11 @@
           packageName = packageName.replace(";", "");   //Eliminar el punto y coma final
 
           //Se crea el nuevo nodo
-          var node = {id:contadorID, shape:"square", label:packageName, color:{background:"#ffffff", border:"#000000"}}; 
+          var node = {id:contadorID, shape:"square", label:packageName, color:{background:"#FFFFFF", border:"#C1C1C1"}}; 
           nodes.add(node); 
 
           //Se crea la conexión
-          edges.add({from:1, to:contadorID, label:"PACKAGE"}); 
+          edges.add({from:1, to:contadorID, label:"PACKAGE", color:{color:"#000000"}}); 
 
           contadorID = contadorID+1; 
 
@@ -259,11 +272,11 @@
           importName = importName.replace(";", "");   //Eliminar el punto y coma en caso de que el usuario lo ponga
           
           //Se crea el nuevo nodo
-          var node = {id:contadorID, shape:"square",label:importName, color:{background:"#F0B0FF", border:"#000000"}}; 
+          var node = {id:contadorID, shape:"square",label:importName, color:{background:"#EE73FF", border:"#AD00C4"}}; 
           nodes.add(node); 
 
           //Se crea la conexión
-          edges.add({from:1, to:contadorID, label:"import",}); 
+          edges.add({from:1, to:contadorID, label:"import", color:{color:"#000000"}}); 
 
           contadorID = contadorID+1; 
 
@@ -284,11 +297,11 @@
           var value = document.getElementById("txt_AttributeName").value;
           
           //Se crea el nuevo nodo
-          var node = {id:contadorID, label:value, color:{background:"#E7A93C", border: "#000000"}}; 
+          var node = {id:contadorID, label:value, color:{background:"#FFAD00", border: "#D18D00"}}; 
           nodes.add(node);
 
           //Agregar el enlace entre los nodos
-          edges.add({from:1, to:contadorID, label:"attribute"});
+          edges.add({from:1, to:contadorID, label:"attribute", color:{color:"#000000"}});
 
           contadorID = contadorID +1; 
 
@@ -312,13 +325,13 @@
           //---AGREGACIÓN DEL NUEVO MÉTODO ----
 
           //Se crea el nuevo nodo
-          var node = {id:contadorID, label:value, color:{background:"#E7E43C", border: "#000000"}}; 
+          var node = {id:contadorID, label:value, color:{background:"#FFFD5E", border: "#C4C200"}}; 
           nodes.add(node);
 
           value = document.getElementById("txt_MetodoName").value;
           
           //Agregar el enlace entre los nodos
-          edges.add({from:1, to:contadorID, label:"method"}); 
+          edges.add({from:1, to:contadorID, label:"method", color:{color:"#000000"}, length: 300}); 
 
           //Se almacena temporalmente el ID del metodo para agregarle los parámetros y el retorno
           var metodoID = contadorID; 
@@ -332,11 +345,11 @@
 
           var parametros = document.getElementById("txt_Parametros").value;
 
-          var nodeParametro = {id:contadorID, label:parametros, color:{background:"#6BE73C", border: "#000000"}}
+          var nodeParametro = {id:contadorID, label:parametros, color:{background:"#84F15B", border: "#01A306"}}
           nodes.add(nodeParametro); 
 
           //Se crean los enlaces desde el método hasta el nuevo nodo
-          edges.add({from:metodoID, to:contadorID, label:"parameter"}); 
+          edges.add({from:metodoID, to:contadorID, label:"parameter", color:{color:"#000000"}}); 
 
           contadorID = contadorID+1; 
 
@@ -344,11 +357,11 @@
 
           var retorno = document.getElementById("txt_Return").value;
 
-          var nodeRetorno = {id:contadorID, label:retorno, color:{background:"#3CE7CA", border: "#000000"}};
+          var nodeRetorno = {id:contadorID, label:retorno, color:{background:"#65F0D9", border: "#00A488"}};
           nodes.add(nodeRetorno); 
 
           //Se crean los enlaces desde el método hasta el nuevo nodo
-          edges.add({from:metodoID, to:contadorID, label:"return"}); 
+          edges.add({from:metodoID, to:contadorID, label:"return", color:{color:"#000000"}}); 
 
           contadorID = contadorID+1; 
 
