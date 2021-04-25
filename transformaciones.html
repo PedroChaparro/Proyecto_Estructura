@@ -294,7 +294,10 @@
         //Función para insertar un nuevo atributo del nodo principal
         function insertAttribute(){
 
-          var value = document.getElementById("txt_AttributeName").value;
+          var value = ""; 
+          value = document.getElementById("txt_AttributeName").value;
+
+          var separado = value.split(" "); 
           
           //Se crea el nuevo nodo
           var node = {id:contadorID, label:value, color:{background:"#FFAD00", border: "#D18D00"}}; 
@@ -312,8 +315,96 @@
           document.getElementById("txt_AttributeName").value = ""; 
 
           //Agregar el atributo a la variable de texto que almacena los atributos
-          codigoAtributos = codigoAtributos + "<br>     public " + value + ";"; 
+          codigoAtributos = codigoAtributos + "<br>     private " + value + ";"; 
 
+          // -----------------------------------
+          //Crear el getter y setter del atirbuto 
+          // -----------------------------------
+
+          // ------------------
+          //Creación del getter
+          // ------------------
+
+          //Se crea el string de salida
+          var strGetter = ""; 
+          strGetter = "<br>    public " + separado[0] + " get_" + separado[1] + "( ) {<br><br>" + "        return this." + separado[1] + ";<br><br>    }<br><br>"; 
+          codigoMetodos = codigoMetodos + strGetter; 
+
+          //Se crea el nodo y la conexión del método
+          var node = {id:contadorID, label:("get_" + separado[1] + "()"), color:{background:"#FFFD5E", border: "#C4C200"}}; 
+          nodes.add(node);
+
+          //Agregar el enlace entre los nodos
+          edges.add({from:1, to:contadorID, label:"method", color:{color:"#000000"}, length: 300}); 
+
+          //Se almacena temporalmente el ID del metodo para agregarle los parámetros y el retorno
+          var metodoID = contadorID; 
+
+          //Se incrementa el contador para una proxima agregación
+          contadorID = contadorID +1; 
+
+          //Se crea el nodo y la conexión del parámetro
+
+          var nodeParametro = {id:contadorID, label:"", color:{background:"#84F15B", border: "#01A306"}}
+          nodes.add(nodeParametro); 
+
+          //Se crean los enlaces desde el método hasta el nuevo nodo
+          edges.add({from:metodoID, to:contadorID, label:"parameter", color:{color:"#000000"}}); 
+
+          contadorID = contadorID+1;
+
+          //Se crea el nodo y la conexión del retorno
+
+          var nodeRetorno = {id:contadorID, label:value, color:{background:"#65F0D9", border: "#00A488"}};
+          nodes.add(nodeRetorno); 
+
+          //Se crean los enlaces desde el método hasta el nuevo nodo
+          edges.add({from:metodoID, to:contadorID, label:"return", color:{color:"#000000"}}); 
+
+          contadorID = contadorID+1; 
+
+          // ------------------
+          //Creación del setter
+          // ------------------
+
+          //Se crea el string de salida
+          var strSetter = ""; 
+          strSetter = "<br>    public void" + " set_" + separado[1] + "( " + separado[0] + " setThis" + " ) { <br> <br>" + "          " + "this." + separado[1] + " = " + "setThis; <br> <br>    }<br><br>";  
+          codigoMetodos = codigoMetodos + strSetter;
+
+          //Se crea el nodo y la conexión del método
+          var node2 = {id:contadorID, label:("set_" + separado[1] + "()"), color:{background:"#FFFD5E", border: "#C4C200"}}; 
+          nodes.add(node2);
+
+          //Agregar el enlace entre el método y el nodo principal 
+          edges.add({from:1, to:contadorID, label:"method", color:{color:"#000000"}, length: 300}); 
+
+          //Se almacena temporalmente el ID del metodo para agregarle los parámetros y el retorno
+          var metodoID2 = contadorID; 
+
+          //Se incrementa el contador para una proxima agregación
+          contadorID = contadorID +1; 
+
+          //Se crea el nodo y la conexión del parámetro
+
+          var nodeParametro = {id:contadorID, label:value, color:{background:"#84F15B", border: "#01A306"}}
+          nodes.add(nodeParametro); 
+
+          //Se crean los enlaces desde el método hasta el nuevo nodo
+          edges.add({from:metodoID2, to:contadorID, label:"parameter", color:{color:"#000000"}}); 
+
+          contadorID = contadorID+1;
+
+          //Se crea el nodo y la conexión del retorno
+
+          var nodeRetorno = {id:contadorID, label:"", color:{background:"#65F0D9", border: "#00A488"}};
+          nodes.add(nodeRetorno); 
+
+          //Se crean los enlaces desde el método hasta el nuevo nodo
+          edges.add({from:metodoID2, to:contadorID, label:"return", color:{color:"#000000"}}); 
+
+          contadorID = contadorID+1; 
+          
         }
 
         //Función para insertar un nuevo nodo método del nodo principal
@@ -394,7 +485,7 @@
                 
                 var retornoSeparado = retorno.split(" "); 
                 //Si el retorno y los parámetros no son nulos
-                codigoMetodos = codigoMetodos + "<br>     public " + retornoSeparado[0] + " " + value + "( " + parametros + " )" + " { <br><br> " + "          " + retornoSeparado[0] + " retorno;<br><br>          return retorno;<br><br>     }<br>"; 
+                codigoMetodos = codigoMetodos + "<br>     public " + retornoSeparado[0] + " " + value + "( " + parametros + " )" + " { <br><br> " + "          " + retornoSeparado[0] + " retorno;<br><br>           return retorno;<br><br>     }<br>"; 
 
               }
 

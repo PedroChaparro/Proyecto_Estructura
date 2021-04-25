@@ -414,7 +414,7 @@
                         var temp = palabras[2]; 
                         var atributo = ""; 
 
-                        if(palabras[0] == "public" && temp[temp.length-1] == ";"){
+                        if((palabras[0] == "public" || palabras[0] == "private") && temp[temp.length-1] == ";"){
 
                             temp = temp.replace(';', ''); 
 
